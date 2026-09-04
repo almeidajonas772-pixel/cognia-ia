@@ -1,168 +1,323 @@
-# COMECE AQUI — colocar o COGNI IA no ar
+# COMECE AQUI — colocar o COGNI IA no ar (guia para iniciante total)
 
-Guia passo a passo, na ordem. Caminho mais rápido: **primeiro no ar em
-`seu-projeto.vercel.app`** (sem domínio, sem chaves de IA — modo demonstração),
-depois liga o resto.
+Este guia dita **cada ação**, uma por vez. Não pula nada. Se travar em algum
+passo, anote o **número do passo** e a mensagem de erro e me chame.
 
-Tempo total: ~1 hora se tudo correr bem.
-
-O que você vai precisar de conta (todas grátis para começar):
-
-- **GitHub** — github.com (guardar o código)
-- **Supabase** — supabase.com (banco + login)
-- **Vercel** — vercel.com (hospedagem)
-- **Node.js** no seu PC — nodejs.org (LTS, versão 20)
-
-Secretos já gerados para você (guarde num lugar seguro — vão para a Vercel):
+Onde os comandos aparecem assim:
 
 ```
-CRON_SECRET        = 715b262da7c37f59f8da2ffe6313d279a84da978d5b4abcb1bea45a8d0610993
-APP_ENCRYPTION_KEY = 377f6a79ba0f08fc3d0aee66237f5a18d0d4886d6768b6664df7bf3558cf6b81
-```
-
----
-
-## BLOCO 1 — Local (≈15 min)
-
-### 1.1 Instalar o Node.js
-
-Baixe em https://nodejs.org (botão **"LTS"**), instale com as opções padrão.
-Reinicie o terminal depois.
-
-### 1.2 Abrir o terminal na pasta do projeto
-
-Abra o **PowerShell** e rode:
-
-```powershell
-cd C:\Users\leomi\cogni-ia
-```
-
-### 1.3 Instalar as dependências
-
-```powershell
 npm install
 ```
 
-Isso cria a pasta `node_modules` e o arquivo `package-lock.json`.
+…você **digita exatamente isso no PowerShell e aperta Enter** (explico o que é
+o PowerShell no Passo 5).
 
-### 1.4 Testar a compilação
-
-```powershell
-npm run build
-```
-
-- **Se terminar com "Compiled successfully"** → ótimo, siga para 1.5.
-- **Se der erro de tipo (`Type error:` …)** → me mande a mensagem completa do
-  erro; eu corrijo. (O código foi escrito sem uma máquina com Node para rodar,
-  então pode haver ajustes pontuais de tipo.)
-
-### 1.5 Enviar o código para o GitHub
-
-O repositório local já está criado com o primeiro commit. Falta só o GitHub:
-
-1. Em https://github.com/new crie um repositório **privado** chamado
-   `cogni-ia` (deixe tudo desmarcado — sem README, sem .gitignore).
-2. No terminal, troque `SEU-USUARIO` pelo seu nome de usuário do GitHub:
-
-```powershell
-git remote add origin https://github.com/SEU-USUARIO/cogni-ia.git
-git push -u origin main
-```
-
-Se pedir login, use o navegador que abrir ou um **Personal Access Token**
-(github.com → Settings → Developer settings → Tokens).
+> Objetivo: site no ar em um endereço tipo `cogni-ia-xxxx.vercel.app`.
+> Sem domínio próprio e sem chaves de IA no começo — isso entra depois.
 
 ---
 
-## BLOCO 2 — Supabase (≈25 min)
+## PARTE 0 — Criar as contas (faça antes de tudo, ~15 min)
 
-### 2.1 Criar o projeto
+Você precisa de 3 contas, todas **grátis**. Crie as 3 agora, deixe as abas
+abertas.
 
-1. https://supabase.com → **New project**.
-2. Nome: `cogni-ia`. **Region: `South America (São Paulo)`**. Defina uma senha
-   forte para o banco (anote).
-3. Espere ~2 min terminar de provisionar.
+### Passo 1 — Conta no GitHub
 
-### 2.2 Pegar as chaves
+1. Abra https://github.com/signup
+2. Digite seu **e-mail** → **Continue**
+3. Crie uma **senha** → **Continue**
+4. Escolha um **nome de usuário** (ex.: `jonasalmeida`) → **Continue**
+5. Resolva o quebra-cabeça de verificação → **Create account**
+6. Digite o código que chegou no seu e-mail
+7. Nas perguntas de personalização, pode escolher qualquer coisa ou pular
+   ("Skip personalization")
 
-Menu lateral → **Project Settings** → **API**. Copie e guarde:
+Pronto. Guarde seu **nome de usuário do GitHub** — vamos usar.
 
-| Nome na Supabase | Você vai chamar de |
+### Passo 2 — Conta no Supabase
+
+1. Abra https://supabase.com
+2. Clique em **Start your project** (botão verde no topo)
+3. Clique em **Continue with GitHub** → clique **Authorize Supabase**
+4. Se pedir, dê um nome para sua "organização" (ex.: `cogni`) e escolha o plano
+   **Free** → **Create organization**
+
+### Passo 3 — Conta na Vercel
+
+1. Abra https://vercel.com/signup
+2. Clique em **Continue with GitHub** → **Authorize Vercel**
+3. Se perguntar seu nome/tipo de uso, responda o que quiser e continue.
+   Se aparecer "Install Vercel" no GitHub, clique **Install** e escolha
+   **All repositories** → **Install**
+
+Agora você tem as 3 contas. Vamos para o computador.
+
+---
+
+## PARTE 1 — Instalar o Node.js (~5 min)
+
+O Node.js é o programa que faz o site funcionar no seu PC para testar.
+
+### Passo 4 — Baixar e instalar
+
+1. Abra https://nodejs.org
+2. Clique no botão grande à esquerda que diz **"LTS"** (vai baixar um arquivo
+   `.msi`, algo como `node-v20.xx.x-x64.msi`)
+3. Abra o arquivo baixado (canto inferior do navegador ou pasta **Downloads**,
+   dê **dois cliques**)
+4. Na janela do instalador:
+   - **Next**
+   - Marque "I accept the terms..." → **Next**
+   - **Next** (deixa a pasta padrão)
+   - **Next** (deixa as opções padrão)
+   - Se aparecer uma tela "Tools for Native Modules" com um **quadradinho para
+     marcar**: **deixe desmarcado** → **Next**
+   - **Install**
+   - O Windows pergunta *"Deseja permitir que este aplicativo faça alterações?"*
+     → **Sim**
+   - Espere a barrinha encher → **Finish**
+
+---
+
+## PARTE 2 — Abrir o terminal e instalar o projeto (~15 min)
+
+### Passo 5 — Abrir o PowerShell na pasta certa
+
+1. Aperte a tecla **Windows** do teclado
+2. Digite: `powershell`
+3. Clique em **Windows PowerShell** (o de ícone azul)
+4. Vai abrir uma janela azul/preta com um texto e um cursor piscando. Digite
+   **exatamente** isto e aperte **Enter**:
+
+```
+cd C:\Users\leomi\cogni-ia
+```
+
+5. A linha antes do cursor deve mudar para
+   `PS C:\Users\leomi\cogni-ia>`. **É esse o sinal de que você está na pasta
+   certa.** Se der erro "não pode encontrar o caminho", me avise.
+
+> **Dicas do PowerShell:** para **colar** um texto copiado, clique com o
+> **botão direito** dentro da janela (ele cola sozinho). Para **copiar** o que
+> está na tela, selecione com o mouse e aperte **Enter** ou **Ctrl+C**.
+
+### Passo 6 — Instalar as dependências
+
+Digite e Enter:
+
+```
+npm install
+```
+
+- Vai aparecer **muito texto** rolando por 1 a 3 minutos. Normal.
+- **Terminou quando** o cursor volta a piscar depois da linha
+  `PS C:\Users\leomi\cogni-ia>` e **não há texto em vermelho** escrito
+  `npm error`.
+- Texto **amarelo** (`npm warn ...`) é normal, pode ignorar.
+
+### Passo 7 — Testar se compila
+
+Digite e Enter:
+
+```
+npm run build
+```
+
+Espere 1 a 2 minutos. Dois resultados possíveis:
+
+- ✅ **Deu certo:** aparece `✓ Compiled successfully` e depois uma **tabela com
+  os endereços do site** (`Route`, `Size`, etc.). Pode seguir para o Passo 8.
+
+- ❌ **Deu erro:** aparece texto **vermelho** com `Failed to compile` ou
+  `Type error:` e um caminho de arquivo. → **Selecione todo esse texto
+  vermelho com o mouse, aperte Enter para copiar, e me cole aqui.** Eu conserto,
+  você repete o Passo 7.
+
+---
+
+## PARTE 3 — Mandar o código para o GitHub (~10 min)
+
+O código já está "empacotado" (fiz isso por você). Falta só enviar para a
+internet.
+
+### Passo 8 — Criar o repositório no GitHub
+
+1. Abra https://github.com/new (precisa estar logado)
+2. Em **Repository name**, digite: `cogni-ia`
+3. Logo abaixo, clique na bolinha **Private** (privado)
+4. **NÃO marque nada** em "Add a README file", "Add .gitignore", "Choose a
+   license" — deixe tudo desmarcado
+5. Clique no botão verde **Create repository**
+
+### Passo 9 — Enviar
+
+A página que abriu tem vários blocos de comando. Ache o bloco com o título
+**"…or push an existing repository from the command line"**. Ele mostra 3
+linhas parecidas com estas.
+
+No PowerShell, digite **estas 3 linhas, uma de cada vez** (Enter depois de
+cada). **Troque `SEU-USUARIO`** pelo seu nome de usuário do GitHub:
+
+```
+git remote add origin https://github.com/SEU-USUARIO/cogni-ia.git
+```
+
+```
+git branch -M main
+```
+
+```
+git push -u origin main
+```
+
+- Na terceira linha, vai abrir uma **janelinha "Connect to GitHub"** ou uma aba
+  no navegador. Clique **"Sign in with your browser"** → **Authorize** →
+  volte para o PowerShell.
+- Quando terminar, aparece algo como `main -> main`. **Atualize a página do
+  GitHub** — seus arquivos devem aparecer lá.
+
+---
+
+## PARTE 4 — Supabase: o banco de dados (~25 min)
+
+### Passo 10 — Criar o projeto
+
+1. Abra https://supabase.com/dashboard
+2. Clique **New project** (botão verde)
+3. **Name:** `cogni-ia`
+4. **Database Password:** clique **Generate a password**, depois no **ícone de
+   copiar** ao lado. **Cole essa senha num bloco de notas e guarde** (você
+   quase não vai usar, mas não dá pra recuperar).
+5. **Region:** abra a lista e escolha **South America (São Paulo)**
+6. **Plan:** Free
+7. Clique **Create new project**
+8. Espere ~2 minutos (aparece "Setting up project...")
+
+### Passo 11 — Copiar as 3 chaves
+
+1. No menu da **esquerda**, lá embaixo, clique no ícone de **engrenagem**
+   (**Project Settings**)
+2. No submenu, clique em **API**
+3. Nesta página você vê:
+   - **Project URL** — uma caixa com um endereço `https://xxxxx.supabase.co` e
+     um botão de copiar. **Copie e cole no bloco de notas** com a etiqueta
+     `URL`.
+   - **Project API Keys** →
+     - a chave **`anon` `public`** — copie, etiquete `ANON`
+     - a chave **`service_role` `secret`** — clique em **Reveal**, copie,
+       etiquete `SERVICE`
+4. Agora você tem 3 valores anotados: `URL`, `ANON`, `SERVICE`.
+
+### Passo 12 — Preencher o arquivo de chaves no seu PC
+
+1. Abra o **Explorador de Arquivos** do Windows
+2. Vá em `C:\Users\leomi\cogni-ia`
+3. Ache o arquivo chamado **`.env.local`** (começa com um ponto). Se não
+   aparecer, no Explorador clique em **Exibir → Mostrar → Itens ocultos**.
+4. Clique nele com o **botão direito → Abrir com → Bloco de Notas**
+5. Você vai ver 3 linhas com `PLACEHOLDER_...`. Troque **só o que vem depois do
+   `=`**:
+   - `NEXT_PUBLIC_SUPABASE_URL=` → cole o `URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY=` → cole o `ANON`
+   - `SUPABASE_SERVICE_ROLE_KEY=` → cole o `SERVICE`
+6. **Ctrl+S** para salvar. Feche o Bloco de Notas.
+
+> Deve ficar tipo: `NEXT_PUBLIC_SUPABASE_URL=https://abcd1234.supabase.co`
+> (sem espaços, sem aspas).
+
+### Passo 13 — Rodar as 13 migrações (criar as tabelas) — NA ORDEM
+
+Isto cria toda a estrutura do banco. São 13 arquivos; repita o mesmo ritual
+para cada um.
+
+1. Na Supabase, menu da esquerda → **SQL Editor**
+2. Clique **+ New query** (ou use o editor em branco que já está aberto)
+3. No seu PC, no Explorador, vá em `C:\Users\leomi\cogni-ia\supabase\migrations`
+4. Clique com o **botão direito** no primeiro arquivo (`0001_init.sql`) →
+   **Abrir com → Bloco de Notas**
+5. No Bloco de Notas: **Ctrl+A** (seleciona tudo) → **Ctrl+C** (copia)
+6. Volte para a Supabase, clique dentro da área grande do SQL Editor →
+   **Ctrl+V** (cola)
+7. Clique **Run** (botão no canto inferior direito, ou aperte **Ctrl+Enter**)
+8. Espere aparecer **"Success. No rows returned"** (verde) no rodapé
+9. Clique dentro do editor, **Ctrl+A** → **Delete** (apaga tudo)
+10. Repita os passos 4 a 9 para o **próximo arquivo**, nesta ordem exata:
+
+```
+0001_init.sql
+0002_biblioteca.sql
+0003_chat.sql
+0004_progresso.sql
+0005_redacao.sql
+0006_comunidade.sql
+0007_billing.sql
+0008_admin_blog.sql
+0009_infra.sql
+0010_seguranca.sql
+0011_onboarding.sql
+0012_crescimento.sql
+0013_ia_adaptativa.sql
+```
+
+> Se algum der **erro vermelho**, pare e me mande: o **nome do arquivo** e a
+> **mensagem completa**. Não pule para o próximo.
+
+### Passo 14 — Criar os 5 "baldes" de arquivos (Storage)
+
+1. Menu da esquerda → **Storage**
+2. Clique **New bucket**
+3. **Name:** `avatars` · **ligue** a chave **Public bucket** · **Save**
+4. Repita **New bucket** para os outros 4:
+
+| Name | Public bucket? |
 | --- | --- |
-| Project URL | `NEXT_PUBLIC_SUPABASE_URL` |
-| `anon` `public` | `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
-| `service_role` `secret` | `SUPABASE_SERVICE_ROLE_KEY` |
+| `avatars` | **ligado** |
+| `blog` | **ligado** |
+| `essays` | desligado |
+| `materials` | desligado |
+| `exports` | desligado |
 
-> A `service_role` é secreta. Nunca coloque no código; só nas variáveis da Vercel.
+### Passo 15 — Configurar o login
 
-### 2.3 Rodar as 13 migrações — NA ORDEM
+1. Menu da esquerda → **Authentication**
+2. No submenu, clique **URL Configuration** (ou **Configuration → URL
+   Configuration**)
+3. **Site URL:** digite `http://localhost:3000`
+4. **Redirect URLs:** clique **Add URL**, digite
+   `http://localhost:3000/auth/callback` → **Save**
+5. Ainda em **Authentication**, clique em **Providers** (ou **Sign In / Up**) e
+   confirme que **Email** está **ligado** (verde). Google fica para depois.
 
-Menu lateral → **SQL Editor** → **+ New query**. Para **cada** arquivo abaixo,
-na ordem: abra o arquivo no seu PC, copie **todo** o conteúdo, cole no editor,
-clique **Run**. Confirme "Success" antes do próximo.
+### Passo 16 — Popular a biblioteca
 
-```
-supabase/migrations/0001_init.sql
-supabase/migrations/0002_biblioteca.sql
-supabase/migrations/0003_chat.sql
-supabase/migrations/0004_progresso.sql
-supabase/migrations/0005_redacao.sql
-supabase/migrations/0006_comunidade.sql
-supabase/migrations/0007_billing.sql
-supabase/migrations/0008_admin_blog.sql
-supabase/migrations/0009_infra.sql
-supabase/migrations/0010_seguranca.sql
-supabase/migrations/0011_onboarding.sql
-supabase/migrations/0012_crescimento.sql
-supabase/migrations/0013_ia_adaptativa.sql
-```
-
-### 2.4 Criar os 5 buckets de Storage
-
-Menu lateral → **Storage** → **New bucket**. Crie exatamente estes:
-
-| Nome | Public? |
-| --- | --- |
-| `avatars` | **✅ Public** |
-| `blog` | **✅ Public** |
-| `essays` | ❌ (privado) |
-| `materials` | ❌ (privado) |
-| `exports` | ❌ (privado) |
-
-### 2.5 Configurar o login
-
-Menu lateral → **Authentication** → **URL Configuration**:
-
-- **Site URL:** por enquanto deixe `http://localhost:3000` (troca depois para a
-  URL da Vercel).
-- **Redirect URLs:** adicione `http://localhost:3000/auth/callback`
-  (depois adiciona também a da Vercel).
-
-Em **Authentication → Providers**, deixe **Email** ligado. (Google é opcional e
-pode ficar para depois.)
-
-### 2.6 Popular a biblioteca + virar admin
-
-No seu PC, crie o arquivo **`C:\Users\leomi\cogni-ia\.env.local`** com (use
-suas chaves reais):
+Volte ao PowerShell (Passo 5). Digite e Enter:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
-```
-
-Rode:
-
-```powershell
 npm run seed:biblioteca
 ```
 
-Depois **crie sua conta**: rode `npm run dev`, abra `http://localhost:3000`,
-vá em **Criar conta**, cadastre-se com o seu e-mail e confirme (o link chega no
-e-mail; ou em Supabase → Authentication → Users você pode confirmar na mão).
+Deve imprimir várias linhas e terminar sem vermelho. Isso enche a biblioteca
+com os conteúdos iniciais.
 
-Por fim, vire administrador. Em **SQL Editor**, rode (troque o e-mail):
+### Passo 17 — Criar a sua conta e virar admin
+
+1. No PowerShell, digite e Enter:
+
+```
+npm run dev
+```
+
+2. Espere aparecer `Ready` e uma linha `Local: http://localhost:3000`
+3. Abra o navegador em **http://localhost:3000**
+4. Clique **Criar conta** → preencha nome, seu e-mail, uma senha → enviar
+5. Vai aparecer "confira seu e-mail". Duas opções:
+   - **Opção A:** abra seu e-mail, clique no link de confirmação.
+   - **Opção B (mais rápida):** na Supabase → **Authentication → Users** → ache
+     sua linha → botão **⋯** → **Confirm email**
+6. Volte ao PowerShell e aperte **Ctrl+C** para parar o `npm run dev`
+7. Na Supabase → **SQL Editor** → cole isto e clique **Run** (troque o e-mail
+   se for outro):
 
 ```sql
 insert into public.app_admins (user_id)
@@ -170,146 +325,161 @@ select id from public.users where email = 'almeidajonas772@gmail.com'
 on conflict do nothing;
 ```
 
----
-
-## BLOCO 3 — Vercel (≈15 min) → NO AR
-
-### 3.1 Importar o projeto
-
-1. https://vercel.com → **Add New… → Project** → **Import** o repositório
-   `cogni-ia` do GitHub.
-2. Framework: **Next.js** (detectado automaticamente). Não mude nada.
-
-### 3.2 Adicionar as variáveis de ambiente
-
-Antes de clicar em Deploy, abra **Environment Variables** e adicione (uma por
-linha, para os 3 ambientes — Production/Preview/Development):
-
-**Obrigatórias:**
-
-```
-NEXT_PUBLIC_SUPABASE_URL        = https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY   = eyJ...
-```
-
-**Fortemente recomendadas (o app funciona melhor):**
-
-```
-SUPABASE_SERVICE_ROLE_KEY = eyJ...
-NEXT_PUBLIC_APP_URL       = https://cogni-ia.vercel.app   (ajuste depois de saber a URL final)
-CRON_SECRET               = 715b262da7c37f59f8da2ffe6313d279a84da978d5b4abcb1bea45a8d0610993
-APP_ENCRYPTION_KEY        = 377f6a79ba0f08fc3d0aee66237f5a18d0d4886d6768b6664df7bf3558cf6b81
-```
-
-### 3.3 Deploy
-
-Clique **Deploy**. Em ~2 min você recebe uma URL tipo
-`https://cogni-ia-xxxx.vercel.app`. **O site está no ar.**
-
-- Se o build falhar com erro de tipo/lint: me mande o log; eu corrijo, você
-  faz `git push` e a Vercel re-deploya sozinha.
-
-### 3.4 Fechar o ciclo
-
-1. Copie a URL real da Vercel.
-2. **Vercel → Settings → Environment Variables:** ajuste `NEXT_PUBLIC_APP_URL`
-   para essa URL. Depois **Deployments → ⋯ → Redeploy**.
-3. **Supabase → Authentication → URL Configuration:**
-   - Site URL → a URL da Vercel
-   - Redirect URLs → adicione `https://SUA-URL.vercel.app/auth/callback`
-4. O **cron já está configurado** (`vercel.json`) — roda `/api/cron` a cada
-   5 min automaticamente porque `CRON_SECRET` existe.
+Deve dizer "Success". Agora você é administrador.
 
 ---
 
-## BLOCO 4 — Deixar tudo "de verdade" (quando quiser)
+## PARTE 5 — Vercel: colocar no ar (~15 min)
 
-Tudo abaixo é **opcional**. Sem isso o site funciona em modo demonstração
-(respostas de IA são esqueletos, checkout é simulado).
+### Passo 18 — Importar o projeto
 
-### 4.1 IA de texto (chat, resumos, questões, redação)
+1. Abra https://vercel.com/new
+2. Você vê uma lista **"Import Git Repository"** com seus repositórios do
+   GitHub. Ache **`cogni-ia`** e clique **Import**.
+   - Se não aparecer: clique **Adjust GitHub App Permissions** / **Configure**,
+     dê acesso ao repositório `cogni-ia`, volte.
+3. Na tela "Configure Project": **não mude nada** (Framework = Next.js já vem
+   selecionado).
 
-1. https://platform.openai.com → **API keys** → **Create new secret key**.
-2. Adicione um cartão em **Billing** e coloque um limite baixo (ex.: US$ 10/mês).
-3. Vercel → Environment Variables:
-   ```
-   OPENAI_API_KEY = sk-...
-   ```
-   (opcional: `OPENAI_CHAT_MODEL = gpt-4o-mini`). Redeploy.
+### Passo 19 — Adicionar as variáveis de ambiente
 
-### 4.2 IA de imagem (OCR de redação)
+Ainda nessa tela, clique para expandir **Environment Variables**. Para **cada
+par abaixo**: digite o **Name** na caixa esquerda, o **Value** na caixa
+direita, clique **Add**.
 
-1. https://aistudio.google.com/apikey → **Create API key**.
-2. Vercel:
-   ```
-   GEMINI_API_KEY = ...
-   ```
-   Redeploy.
+**Obrigatórias** (use os valores que você anotou no Passo 11):
 
-### 4.3 Pagamentos (Mercado Pago)
-
-1. https://www.mercadopago.com.br/developers → suas credenciais →
-   **Access Token de produção**.
-2. Vercel:
-   ```
-   MERCADOPAGO_ACCESS_TOKEN  = APP_USR-...
-   MERCADOPAGO_WEBHOOK_SECRET = (invente uma string aleatória longa)
-   ```
-   Redeploy.
-3. No painel do Mercado Pago, configure o **Webhook** apontando para:
-   `https://SUA-URL/api/billing/webhook?secret=SEU_MERCADOPAGO_WEBHOOK_SECRET`
-
-### 4.4 Domínio próprio (cogniai.com.br)
-
-1. Vercel → Settings → **Domains** → adicione `cogniai.com.br` e `www`.
-2. Aponte o DNS conforme a Vercel indicar (registro A / CNAME).
-3. Ajuste `NEXT_PUBLIC_APP_URL` para `https://cogniai.com.br` e a Site URL do
-   Supabase. Redeploy.
-
-### 4.5 Google Analytics (opcional)
-
-`NEXT_PUBLIC_GA_ID = G-XXXXXXXXXX` na Vercel. Só carrega se o visitante aceitar
-os cookies de análise.
-
-### 4.6 Cache compartilhado (opcional, para escala)
-
-Upstash Redis grátis (https://upstash.com): crie um banco Redis, pegue as
-credenciais **REST**:
-```
-UPSTASH_REDIS_REST_URL   = ...
-UPSTASH_REDIS_REST_TOKEN = ...
-```
-Sem isso o cache/rate-limit usa a memória de cada instância (funciona, só não
-é compartilhado).
-
----
-
-## BLOCO 5 — Conferir que está tudo certo
-
-Abra a URL da Vercel e teste:
-
-- [ ] Landing carrega; `/precos` mostra R$ 14,90 e R$ 119,90.
-- [ ] Criar conta → confirmar e-mail → cai no onboarding `/bem-vindo`.
-- [ ] `/dashboard` abre; a biblioteca lista conteúdo (se rodou o seed).
-- [ ] Chat responde (esqueleto sem `OPENAI_API_KEY`, real com).
-- [ ] `/admin` abre (você é admin) → `/admin/saude` com os cartões no verde/aceitável.
-- [ ] `/perfil/privacidade` → "Solicitar exportação" gera um arquivo.
-- [ ] `curl -H "Authorization: Bearer 715b262d..." https://SUA-URL/api/cron`
-      responde `{"ok":true,...}`.
-
----
-
-## Se algo der errado
-
-| Sintoma | Causa provável |
+| Name | Value |
 | --- | --- |
-| Build falha na Vercel com `Type error` | erro de tipo no código — me mande o log, eu corrijo |
-| Login não funciona | Redirect URL do Supabase não bate com a URL da Vercel |
-| Biblioteca vazia | faltou `npm run seed:biblioteca` (com o `.env.local` certo) |
-| `/admin` redireciona para `/dashboard` | você não está em `app_admins` (rode o SQL do passo 2.6) |
-| Chat/redação em "modo demonstração" | falta `OPENAI_API_KEY` (bloco 4.1) — é esperado |
-| `/admin/saude` mostra "Fila / erros" degradado | falta `SUPABASE_SERVICE_ROLE_KEY` na Vercel |
-| Cron dá 401 | `CRON_SECRET` diferente entre a Vercel e o header do curl |
+| `NEXT_PUBLIC_SUPABASE_URL` | seu `URL` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | sua chave `ANON` |
 
-Ordem de prioridade se o tempo for curto: **Bloco 1 → 2 → 3** já coloca o site
-no ar utilizável. Bloco 4 é evolução.
+**Recomendadas:**
+
+| Name | Value |
+| --- | --- |
+| `SUPABASE_SERVICE_ROLE_KEY` | sua chave `SERVICE` |
+| `NEXT_PUBLIC_APP_URL` | `https://cogni-ia.vercel.app` *(ajusta no Passo 21)* |
+| `CRON_SECRET` | `715b262da7c37f59f8da2ffe6313d279a84da978d5b4abcb1bea45a8d0610993` |
+| `APP_ENCRYPTION_KEY` | `377f6a79ba0f08fc3d0aee66237f5a18d0d4886d6768b6664df7bf3558cf6b81` |
+
+### Passo 20 — Deploy
+
+1. Clique no botão **Deploy**
+2. Espere ~2 minutos (barra de progresso + logs rolando)
+3. ✅ **Deu certo:** aparecem uns confetes e **"Congratulations!"**. Clique
+   **Continue to Dashboard**. No painel, o endereço do site aparece no topo
+   (algo como `cogni-ia-a1b2c3.vercel.app`). **Abra esse link — o site está no
+   ar.**
+4. ❌ **Falhou** (texto vermelho no log, "Error"): clique em **View Build
+   Logs**, role até o primeiro erro em vermelho, **copie e me mande**. Eu
+   conserto, você faz no PowerShell:
+   ```
+   git add -A
+   git commit -m "corrige build"
+   git push
+   ```
+   e a Vercel re-publica sozinha.
+
+---
+
+## PARTE 6 — Amarrar as pontas (~5 min)
+
+### Passo 21 — Ajustar a URL
+
+1. Copie o endereço real do seu site (ex.: `https://cogni-ia-a1b2c3.vercel.app`)
+2. Na Vercel: **seu projeto → Settings → Environment Variables** → ache
+   `NEXT_PUBLIC_APP_URL` → **Edit** → cole a URL real → **Save**
+3. Vá na aba **Deployments** → no deploy mais recente clique **⋯** →
+   **Redeploy** → **Redeploy**
+
+### Passo 22 — Ajustar o login para a URL de produção
+
+1. Na Supabase → **Authentication → URL Configuration**
+2. **Site URL:** troque para a URL real da Vercel
+3. **Redirect URLs:** clique **Add URL** e adicione
+   `https://SUA-URL.vercel.app/auth/callback` (mantenha também a de localhost)
+4. **Save**
+
+Pronto. O cron (`/api/cron` a cada 5 min) já roda sozinho porque você definiu
+`CRON_SECRET`.
+
+---
+
+## PARTE 7 — Conferir que está tudo funcionando
+
+Abra a URL da Vercel e teste, na ordem:
+
+- [ ] A página inicial carrega
+- [ ] `/precos` mostra R$ 14,90 e R$ 119,90
+- [ ] **Criar conta** com um e-mail novo → confirma → cai em **Bem-vindo**
+- [ ] `/dashboard` abre; a **Biblioteca** lista conteúdos
+- [ ] O **Chat** responde (resposta "de demonstração" enquanto não houver
+      chave de IA — isso é esperado)
+- [ ] Logado com a **sua** conta, `/admin` abre (você é admin)
+- [ ] `/admin/saude` mostra os cartões — banco e cache no verde
+
+Se tudo isso passou: **está no ar e funcional.** 🎉
+
+---
+
+## PARTE 8 — Deixar "de verdade" (quando quiser, um de cada vez)
+
+Cada item abaixo é: **pegar a chave → adicionar na Vercel (Settings →
+Environment Variables → Add) → Redeploy**. Nada de mexer no código.
+
+### 8.1 — IA de texto (chat, resumos, questões, correção de redação)
+
+1. https://platform.openai.com/api-keys → **Create new secret key** → copie
+2. Em **Settings → Billing** adicione um cartão e um limite (ex.: **US$ 10**)
+3. Vercel → nova variável: `OPENAI_API_KEY` = a chave. Redeploy.
+
+### 8.2 — IA de imagem (OCR da foto da redação)
+
+1. https://aistudio.google.com/apikey → **Create API key** → copie
+2. Vercel → `GEMINI_API_KEY` = a chave. Redeploy.
+
+### 8.3 — Pagamentos (Mercado Pago)
+
+1. https://www.mercadopago.com.br/developers → **Suas integrações** → crie uma
+   aplicação → **Credenciais de produção** → copie o **Access Token**
+2. Vercel:
+   - `MERCADOPAGO_ACCESS_TOKEN` = o token
+   - `MERCADOPAGO_WEBHOOK_SECRET` = invente uma senha longa (letras+números)
+   Redeploy.
+3. No Mercado Pago, em **Webhooks / Notificações**, cadastre a URL:
+   `https://SUA-URL/api/billing/webhook?secret=O_MESMO_WEBHOOK_SECRET`
+
+### 8.4 — Domínio próprio (cogniai.com.br)
+
+1. Vercel → seu projeto → **Settings → Domains** → digite `cogniai.com.br` →
+   **Add**
+2. A Vercel mostra registros de DNS. No painel de onde você comprou o domínio
+   (Registro.br, GoDaddy, etc.), adicione **exatamente** esses registros.
+3. Espere propagar (minutos a algumas horas)
+4. Vercel → `NEXT_PUBLIC_APP_URL` = `https://cogniai.com.br` → Redeploy
+5. Supabase → Authentication → troque a Site URL e adicione
+   `https://cogniai.com.br/auth/callback`
+
+### 8.5 — Google Analytics (opcional)
+
+Vercel → `NEXT_PUBLIC_GA_ID` = `G-XXXXXXXXXX`. Só carrega se o visitante
+aceitar os cookies de análise.
+
+---
+
+## Problemas comuns
+
+| O que aconteceu | O que fazer |
+| --- | --- |
+| `npm` não é reconhecido no PowerShell | Feche e reabra o PowerShell depois de instalar o Node (Passo 4/5). Reinicie o PC se persistir. |
+| `npm run build` deu `Type error` | Copie o texto vermelho e me mande. É ajuste rápido. |
+| Deploy da Vercel falhou | **View Build Logs** → copie o primeiro erro → me mande. |
+| Login não funciona no site | A **Redirect URL** do Supabase (Passo 22) tem que ser **exatamente** `https://SUA-URL.vercel.app/auth/callback`. |
+| Biblioteca vazia | Faltou o Passo 16 (`npm run seed:biblioteca`) com o `.env.local` preenchido. |
+| `/admin` te joga para `/dashboard` | Faltou o SQL do Passo 17 (te tornar admin). Rode de novo. |
+| Chat responde texto "de demonstração" | Normal sem `OPENAI_API_KEY` (Passo 8.1). |
+| `/admin/saude` com "Fila / erros" degradado | Falta `SUPABASE_SERVICE_ROLE_KEY` nas variáveis da Vercel. |
+
+**Se o tempo for curto:** PARTE 0 → 1 → 2 → 3 → 4 → 5 → 6 já coloca o site
+utilizável no ar. A PARTE 8 é evolução, pode ser em outro dia.
