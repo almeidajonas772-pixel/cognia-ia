@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="360" fill="#0B1220"/>
+  <text x="40" y="38" fill="#E5E7EB" font-size="18" font-weight="600">População urbana × rural no Brasil (%)</text>
+
+  <!-- grade horizontal (0,25,50,75,100) -->
+  <g stroke="#1E293B">
+    <line x1="90" y1="300" x2="740" y2="300"/><line x1="90" y1="240" x2="740" y2="240"/>
+    <line x1="90" y1="180" x2="740" y2="180"/><line x1="90" y1="120" x2="740" y2="120"/><line x1="90" y1="60" x2="740" y2="60"/>
+  </g>
+  <g fill="#64748B" font-size="10" text-anchor="end">
+    <text x="82" y="304">0</text><text x="82" y="244">25</text><text x="82" y="184">50</text><text x="82" y="124">75</text><text x="82" y="64">100</text>
+  </g>
+  <g fill="#64748B" font-size="10" text-anchor="middle">
+    <text x="90" y="318">1940</text><text x="252" y="318">1960</text><text x="415" y="318">1980</text><text x="577" y="318">2000</text><text x="740" y="318">2020</text>
+  </g>
+
+  <!-- urbana (sobe): 31,45,56,68,81,87 em 1940,1960,1970,1980,2000,2020 -->
+  <polyline fill="none" stroke="#3B82F6" stroke-width="2.5"
+    points="90,225 252,192 293,166 415,137 577,106 740,91"/>
+  <text x="700" y="82" fill="#3B82F6" font-size="12" text-anchor="end">urbana</text>
+
+  <!-- rural (desce) -->
+  <polyline fill="none" stroke="#F5B547" stroke-width="2.5"
+    points="90,135 252,168 293,194 415,223 577,254 740,269"/>
+  <text x="700" y="285" fill="#F5B547" font-size="12" text-anchor="end">rural</text>
+
+  <!-- cruzamento ~1965 -->
+  <circle cx="272" cy="180" r="5" fill="#E5E7EB"/>
+  <line x1="272" y1="180" x2="272" y2="90" stroke="#334155" stroke-dasharray="3 4"/>
+  <text x="284" y="98" fill="#E5E7EB" font-size="11.5">~1965: o Brasil se torna urbano</text>
+
+  <text x="40" y="346" fill="#64748B" font-size="11">Urbanização rápida, tardia e desigual: a cidade cresceu mais que a infraestrutura para absorvê-la.</text>
+</svg>

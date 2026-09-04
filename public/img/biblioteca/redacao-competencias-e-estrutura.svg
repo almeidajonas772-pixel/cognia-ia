@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="360" fill="#0B1220"/>
+  <text x="40" y="38" fill="#E5E7EB" font-size="18" font-weight="600">Redação do ENEM: competências e estrutura</text>
+
+  <!-- competências -->
+  <text x="40" y="72" fill="#94A3B8" font-size="12.5">5 competências × 200 = 1000</text>
+  <g font-size="11.5" fill="#E5E7EB">
+    <rect x="40" y="86" width="330" height="30" rx="5" fill="#3B82F6" fill-opacity="0.25" stroke="#3B82F6"/><text x="52" y="106">C1 — Norma culta</text><text x="360" y="106" text-anchor="end" fill="#94A3B8">0–200</text>
+    <rect x="40" y="122" width="330" height="30" rx="5" fill="#3B82F6" fill-opacity="0.25" stroke="#3B82F6"/><text x="52" y="142">C2 — Compreensão do tema + repertório</text><text x="360" y="142" text-anchor="end" fill="#94A3B8">0–200</text>
+    <rect x="40" y="158" width="330" height="30" rx="5" fill="#3B82F6" fill-opacity="0.25" stroke="#3B82F6"/><text x="52" y="178">C3 — Projeto de texto (argumentação)</text><text x="360" y="178" text-anchor="end" fill="#94A3B8">0–200</text>
+    <rect x="40" y="194" width="330" height="30" rx="5" fill="#3B82F6" fill-opacity="0.25" stroke="#3B82F6"/><text x="52" y="214">C4 — Coesão</text><text x="360" y="214" text-anchor="end" fill="#94A3B8">0–200</text>
+    <rect x="40" y="230" width="330" height="30" rx="5" fill="#3B82F6" fill-opacity="0.25" stroke="#3B82F6"/><text x="52" y="250">C5 — Proposta de intervenção</text><text x="360" y="250" text-anchor="end" fill="#94A3B8">0–200</text>
+  </g>
+
+  <!-- estrutura -->
+  <g font-size="11.5" fill="#E5E7EB" text-anchor="middle">
+    <rect x="470" y="86" width="290" height="42" rx="6" fill="#16223A" stroke="#334155"/><text x="615" y="112">Introdução — apresenta a tese</text>
+    <rect x="470" y="140" width="290" height="42" rx="6" fill="#16223A" stroke="#334155"/><text x="615" y="166">Desenvolvimento 1 — argumento + repertório</text>
+    <rect x="470" y="194" width="290" height="42" rx="6" fill="#16223A" stroke="#334155"/><text x="615" y="220">Desenvolvimento 2 — argumento + repertório</text>
+    <rect x="470" y="248" width="290" height="42" rx="6" fill="#60A5FA" fill-opacity="0.2" stroke="#60A5FA"/><text x="615" y="266">Conclusão — proposta de</text><text x="615" y="282">intervenção (agente, ação, meio, fim, detalhe)</text>
+  </g>
+  <g stroke="#334155" stroke-width="1.5">
+    <line x1="615" y1="128" x2="615" y2="140" marker-end="url(#d)"/>
+    <line x1="615" y1="182" x2="615" y2="194" marker-end="url(#d)"/>
+    <line x1="615" y1="236" x2="615" y2="248" marker-end="url(#d)"/>
+  </g>
+  <defs><marker id="d" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,0 L5,10 z" fill="#334155"/></marker></defs>
+
+  <text x="40" y="320" fill="#64748B" font-size="11">Zera: fuga total ao tema · não ser dissertativo-argumentativo · menos de 7 linhas · cópia dos textos motivadores.</text>
+</svg>

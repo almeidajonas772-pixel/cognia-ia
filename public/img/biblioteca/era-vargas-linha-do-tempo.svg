@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="320" fill="#0B1220"/>
+  <text x="40" y="42" fill="#E5E7EB" font-size="18" font-weight="600">Era Vargas — as três fases (1930–1945)</text>
+
+  <!-- eixo -->
+  <line x1="70" y1="170" x2="760" y2="170" stroke="#334155" stroke-width="2"/>
+
+  <!-- segmentos -->
+  <rect x="70"  y="158" width="176" height="24" rx="4" fill="#3B82F6" fill-opacity="0.28"/>
+  <rect x="246" y="158" width="132" height="24" rx="4" fill="#60A5FA" fill-opacity="0.28"/>
+  <rect x="378" y="158" width="382" height="24" rx="4" fill="#FB7185" fill-opacity="0.24"/>
+
+  <text x="158" y="210" fill="#93A3B8" font-size="12" text-anchor="middle">Governo Provisório</text>
+  <text x="158" y="226" fill="#64748B" font-size="11" text-anchor="middle">1930–1934 · decretos</text>
+  <text x="312" y="210" fill="#93A3B8" font-size="12" text-anchor="middle">Constitucional</text>
+  <text x="312" y="226" fill="#64748B" font-size="11" text-anchor="middle">1934–1937</text>
+  <text x="565" y="210" fill="#93A3B8" font-size="12" text-anchor="middle">Estado Novo (ditadura)</text>
+  <text x="565" y="226" fill="#64748B" font-size="11" text-anchor="middle">1937–1945 · DIP · repressão</text>
+
+  <!-- eventos acima -->
+  <g fill="#E5E7EB" font-size="11.5" text-anchor="middle">
+    <circle cx="70"  cy="170" r="4" fill="#60A5FA"/><text x="70"  y="92">Revolução de 1930</text><line x1="70"  y1="100" x2="70"  y2="158" stroke="#334155"/>
+    <circle cx="246" cy="170" r="4" fill="#60A5FA"/><text x="246" y="122">Constituição de 1934</text><line x1="246" y1="130" x2="246" y2="158" stroke="#334155"/>
+    <circle cx="378" cy="170" r="4" fill="#FB7185"/><text x="378" y="92">Golpe do Estado Novo</text><line x1="378" y1="100" x2="378" y2="158" stroke="#334155"/>
+    <circle cx="642" cy="170" r="4" fill="#FB7185"/><text x="642" y="122">CLT (1943)</text><line x1="642" y1="130" x2="642" y2="158" stroke="#334155"/>
+  </g>
+
+  <!-- eventos abaixo -->
+  <g fill="#94A3B8" font-size="11" text-anchor="middle">
+    <circle cx="158" cy="170" r="3.5" fill="#334155"/><line x1="158" y1="182" x2="158" y2="250" stroke="#1E293B"/><text x="158" y="266">1932 · Const.ista</text>
+    <circle cx="290" cy="170" r="3.5" fill="#334155"/><line x1="290" y1="182" x2="290" y2="250" stroke="#1E293B"/><text x="290" y="266">1935 · ANL / Intentona</text>
+    <circle cx="510" cy="170" r="3.5" fill="#334155"/><line x1="510" y1="182" x2="510" y2="250" stroke="#1E293B"/><text x="510" y="266">1940 · salário mínimo</text>
+    <circle cx="760" cy="170" r="4" fill="#60A5FA"/><line x1="760" y1="182" x2="760" y2="284" stroke="#1E293B"/><text x="720" y="300" text-anchor="end" fill="#E5E7EB">1945 · queda de Vargas</text>
+  </g>
+</svg>

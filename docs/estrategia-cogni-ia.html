@@ -1,0 +1,882 @@
+<title>COGNI IA · Estratégia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600&display=swap"
+/>
+
+<style>
+  :root {
+    --ground: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eef1f5;
+    --hairline: rgba(16, 23, 37, 0.12);
+    --hairline-strong: rgba(16, 23, 37, 0.22);
+    --ink: #101725;
+    --ink-soft: #33404f;
+    --muted: #5a6675;
+    --accent: #2563eb;
+    --accent-quiet: rgba(37, 99, 235, 0.1);
+    --go: #0f9d6b;
+    --flag: #b7791f;
+    --flag-quiet: rgba(183, 121, 31, 0.1);
+    --risk: #d64560;
+    --risk-quiet: rgba(214, 69, 96, 0.09);
+
+    --font-display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+    --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0b1220;
+      --surface: #111a2e;
+      --surface-2: #16223a;
+      --hairline: rgba(148, 163, 184, 0.14);
+      --hairline-strong: rgba(148, 163, 184, 0.28);
+      --ink: #e5e7eb;
+      --ink-soft: #c3ccd9;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --accent-quiet: rgba(59, 130, 246, 0.14);
+      --go: #34d399;
+      --flag: #f5b547;
+      --flag-quiet: rgba(245, 181, 71, 0.12);
+      --risk: #fb7185;
+      --risk-quiet: rgba(251, 113, 133, 0.12);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0b1220;
+    --surface: #111a2e;
+    --surface-2: #16223a;
+    --hairline: rgba(148, 163, 184, 0.14);
+    --hairline-strong: rgba(148, 163, 184, 0.28);
+    --ink: #e5e7eb;
+    --ink-soft: #c3ccd9;
+    --muted: #94a3b8;
+    --accent: #60a5fa;
+    --accent-quiet: rgba(59, 130, 246, 0.14);
+    --go: #34d399;
+    --flag: #f5b547;
+    --flag-quiet: rgba(245, 181, 71, 0.12);
+    --risk: #fb7185;
+    --risk-quiet: rgba(251, 113, 133, 0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.62;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1.15rem, 4vw, 2.5rem) 5rem;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    border-bottom: 1px solid var(--hairline-strong);
+    padding-bottom: 2rem;
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1.1rem;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 7vw, 3.7rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: clamp(1.05rem, 2.4vw, 1.22rem);
+    color: var(--ink-soft);
+    max-width: 34em;
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+    margin-top: 1.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .meta span::before {
+    content: "▸ ";
+    color: var(--accent);
+  }
+
+  /* ---------- Sections ---------- */
+  section {
+    margin-top: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.9rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--hairline);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.6vw, 2rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.9rem;
+    text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin: 1.8rem 0 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  p {
+    margin: 0 0 1rem;
+    max-width: 68ch;
+  }
+  strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  ul,
+  ol {
+    max-width: 68ch;
+    padding-left: 1.2rem;
+    margin: 0 0 1rem;
+  }
+  li {
+    margin: 0.35rem 0;
+  }
+  li::marker {
+    color: var(--muted);
+  }
+
+  .statement {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
+    line-height: 1.32;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding: 0.2rem 0 0.2rem 1.2rem;
+    margin: 0 0 1.4rem;
+    max-width: 32em;
+    text-wrap: balance;
+  }
+
+  /* ---------- Cards / grid ---------- */
+  .grid {
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    margin: 1.4rem 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 1.1rem 1.15rem;
+  }
+  .card h4 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .card p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Tables ---------- */
+  .table-scroll {
+    overflow-x: auto;
+    margin: 1.4rem 0;
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 460px;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 0.7rem 0.95rem;
+    border-bottom: 1px solid var(--hairline);
+    vertical-align: top;
+  }
+  thead th {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface-2);
+  }
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  td.num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--muted);
+    border-radius: 12px;
+    padding: 1rem 1.15rem;
+    margin: 1rem 0;
+    background: var(--surface);
+  }
+  .callout.flag {
+    border-left-color: var(--flag);
+    background: var(--flag-quiet);
+  }
+  .callout.risk {
+    border-left-color: var(--risk);
+    background: var(--risk-quiet);
+  }
+  .callout.go {
+    border-left-color: var(--go);
+  }
+  .callout .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .callout.flag .tag {
+    color: var(--flag);
+  }
+  .callout.risk .tag {
+    color: var(--risk);
+  }
+  .callout.go .tag {
+    color: var(--go);
+  }
+  .callout p {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+  }
+  .callout p + p {
+    margin-top: 0.6rem;
+  }
+
+  /* ---------- Roadmap ---------- */
+  .block {
+    margin: 1.6rem 0;
+  }
+  .block-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.2rem;
+  }
+  .block-head .bid {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.05rem 0.4rem;
+  }
+  .block-head h3 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  .block > p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0.3rem 0 0.9rem;
+  }
+  .phases {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .phases li {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0.9rem;
+    padding: 0.75rem 1rem;
+    margin: 0;
+    border-bottom: 1px solid var(--hairline);
+    background: var(--surface);
+  }
+  .phases li:last-child {
+    border-bottom: none;
+  }
+  .phases .pn {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-top: 0.15rem;
+  }
+  .phases .pt {
+    font-size: 0.93rem;
+  }
+  .phases .pt b {
+    display: block;
+    font-weight: 600;
+    font-family: var(--font-display);
+    letter-spacing: -0.005em;
+  }
+  .phases .pt span {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .next {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 1.4rem 0 0;
+  }
+  .next li {
+    counter-increment: step;
+    position: relative;
+    padding: 0.55rem 0 0.55rem 2.6rem;
+    border-top: 1px solid var(--hairline);
+    max-width: 68ch;
+  }
+  .next li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--accent-quiet);
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--hairline-strong);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Documento de estratégia</p>
+    <h1>COGNI IA</h1>
+    <p class="lede">
+      Plataforma de estudos com IA para o ENEM e vestibulares: biblioteca de
+      conteúdos, tutor, correção de redação e comunidade — em um só produto.
+    </p>
+    <div class="meta">
+      <span>Preparado para Jonas</span>
+      <span>30 ago 2026</span>
+      <span>v1 — base para decisão</span>
+      <span>Código: Fase 1 iniciada</span>
+    </div>
+  </header>
+
+  <section id="conceito">
+    <p class="eyebrow">O conceito</p>
+    <h2>Um cursinho de IA no bolso, do resumo à redação</h2>
+    <p class="statement">
+      Para o estudante de ensino médio que se prepara para o ENEM e não quer (ou
+      não pode) pagar um cursinho completo — o COGNI IA reúne material de estudo,
+      um tutor que responde na hora e correção de redação por banca, por uma
+      mensalidade menor que um ingresso de cinema.
+    </p>
+    <p>
+      O trabalho central do produto: <strong>reduzir o atrito entre "tenho uma
+      dúvida agora" e "entendi e avancei"</strong>. Tudo o mais — comunidade,
+      analytics, gamificação — existe para manter o aluno voltando.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h4>Quem paga</h4>
+        <p>
+          Estudante 15–19 anos (e o responsável, que muitas vezes autoriza a
+          compra). Também vestibulandos de FUVEST, UNICAMP, medicina.
+        </p>
+      </div>
+      <div class="card">
+        <h4>O que substitui</h4>
+        <p>
+          Banco de questões + corretor de redação avulso + material de resumo.
+          Três compras viram uma assinatura.
+        </p>
+      </div>
+      <div class="card">
+        <h4>Diferencial</h4>
+        <p>
+          Os líderes (Descomplica, Stoodi, Me Salvei) são vídeo-aula. O COGNI IA
+          é conversacional e adaptativo — nasce dentro da IA.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mercado">
+    <p class="eyebrow">Por que pode dar certo</p>
+    <h2>Um mercado grande, com uma lacuna clara</h2>
+    <ul>
+      <li>
+        <strong>Escala do funil:</strong> o ENEM tem na casa de 3–4 milhões de
+        inscritos por ano, renovados a cada ciclo. É um público que se
+        auto-identifica e tem urgência com data marcada.
+      </li>
+      <li>
+        <strong>Busca orgânica massiva:</strong> "resumo de [tema] para o ENEM",
+        "como fazer redação nota 1000" e afins são consultas de altíssimo volume.
+        A Fase 9 (Blog + SEO) é um canal de aquisição real, não enfeite.
+      </li>
+      <li>
+        <strong>Preço de entrada agressivo:</strong> R$ 14,90/mês posiciona o
+        produto como compra por impulso, abaixo dos R$ 40–100 dos concorrentes.
+        É uma aposta de volume — o que torna a próxima seção decisiva.
+      </li>
+      <li>
+        <strong>Momento da tecnologia:</strong> tutor de IA que resolve questão
+        passo a passo e corrige redação com justificativa técnica só ficou
+        viável há pouco. Os incumbentes carregam catálogos de vídeo e um modelo
+        de negócio que não incentiva canibalizá-los.
+      </li>
+    </ul>
+  </section>
+
+  <section id="modelo">
+    <p class="eyebrow">Modelo de negócio</p>
+    <h2>Assinatura no centro, cinco camadas de receita</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Camada</th>
+            <th>Como funciona</th>
+            <th>Entra na fase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Assinatura Premium</strong></td>
+            <td>R$ 14,90/mês ou R$ 119,90/ano (~33% off). Núcleo da receita recorrente.</td>
+            <td class="num">8</td>
+          </tr>
+          <tr>
+            <td><strong>Anúncios</strong></td>
+            <td>AdSense / Ad Manager só para o plano gratuito, em posições definidas. Premium nunca vê anúncio.</td>
+            <td class="num">8</td>
+          </tr>
+          <tr>
+            <td><strong>Afiliados</strong></td>
+            <td>Livros, apostilas, cursos, tablets. Componentes nativos ("Material recomendado") já previstos.</td>
+            <td class="num">8</td>
+          </tr>
+          <tr>
+            <td><strong>Patrocínio</strong></td>
+            <td>Cursinhos, universidades, editoras. Espaços reserváveis sem mexer na arquitetura.</td>
+            <td class="num">8</td>
+          </tr>
+          <tr>
+            <td><strong>Cupons / indicação</strong></td>
+            <td>Descontos administráveis e "+1 resumo semanal" por convidado válido — motor de crescimento, não receita direta.</td>
+            <td class="num">8 · 14</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Pagamento via <strong>Mercado Pago</strong> é a escolha certa para o
+      Brasil: cobre Pix, boleto e cartão local, com assinatura recorrente e
+      webhooks. Só o Premium precisa de checkout; o resto do produto é gratuito
+      por padrão.
+    </p>
+  </section>
+
+  <section id="economia">
+    <p class="eyebrow">O risco número 1</p>
+    <h2>A conta que precisa fechar: custo de IA × R$ 14,90</h2>
+    <p>
+      A R$ 14,90/mês, um assinante Premium "ilimitado" que usa muito chat,
+      geração de imagem e correção de redação com OCR pode custar mais em API do
+      que paga. Este é o ponto que mais ameaça o negócio — e é gerenciável se
+      tratado como restrição de projeto desde já.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Perfil de uso mensal (ilustrativo)</th>
+            <th>Custo de IA aprox.</th>
+            <th>Margem sobre R$ 14,90</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Leve — ~150 mensagens curtas, 4 resumos</td>
+            <td class="num">R$ 3–7</td>
+            <td class="num">saudável</td>
+          </tr>
+          <tr>
+            <td>Médio — ~600 mensagens, 12 resumos, 8 redações com OCR</td>
+            <td class="num">R$ 12–22</td>
+            <td class="num">no limite / negativa</td>
+          </tr>
+          <tr>
+            <td>Pesado — uso "ilimitado" real + geração de imagem + simulados longos</td>
+            <td class="num">R$ 30–60+</td>
+            <td class="num">prejuízo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--muted)">
+      Números ilustrativos, só para dimensionar o problema — o valor real depende
+      de qual modelo atende cada tarefa e de quanto é servido de cache.
+    </p>
+    <h3>Alavancas (todas já compatíveis com a arquitetura das fases)</h3>
+    <ul>
+      <li>
+        <strong>Pré-gerar a Biblioteca uma vez</strong>, não por usuário. O
+        conteúdo "resumo completo" é gerado, revisado (fila da Fase 7/9) e
+        servido estático a todo mundo. É o maior ganho de margem disponível.
+      </li>
+      <li>
+        <strong>Roteamento de modelo (Fase 15):</strong> tarefa simples → modelo
+        barato; só raciocínio pesado e conteúdo longo vão para o modelo caro.
+      </li>
+      <li>
+        <strong>Cache agressivo (Fase 10)</strong> de respostas frequentes e de
+        questões geradas — muitas dúvidas de ENEM se repetem.
+      </li>
+      <li>
+        <strong>"Ilimitado" com uso justo:</strong> manter um teto alto e
+        invisível no Premium para conter o caso extremo, sem comunicar como
+        limite.
+      </li>
+      <li>
+        <strong>Geração de imagem sob demanda e limitada</strong> mesmo no
+        Premium — é o item de custo mais volátil.
+      </li>
+    </ul>
+  </section>
+
+  <section id="mvp">
+    <p class="eyebrow">Recomendação</p>
+    <h2>Antes das 15 fases, um MVP que responde uma pergunta</h2>
+    <p>
+      As 15 fases descrevem um produto maduro — é um roadmap de anos para um
+      time. Para um fundador validando a ideia, o objetivo do primeiro ciclo é
+      só um: <strong>descobrir se existe gente disposta a pagar R$ 14,90/mês por
+      isto</strong>. Tudo que não contribui para essa resposta pode esperar.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h4>Construir primeiro</h4>
+        <p>
+          Fase 1 (base) · Fase 2 (login) · Fase 3 enxuta: Biblioteca com 1–2
+          matérias pré-geradas · Fase 4 enxuta: chat só com um modelo, com limite
+          diário · Fase 6 enxuta: redação em texto + OCR, só banca ENEM · Fase 8
+          enxuta: paywall Mercado Pago.
+        </p>
+      </div>
+      <div class="card">
+        <h4>Adiar</h4>
+        <p>
+          Comunidade (Fase 7), analytics e dashboards avançados (Fase 5/9),
+          painel admin completo, afiliados e patrocínio, gamificação, IA
+          adaptativa, geração de imagem, múltiplas bancas.
+        </p>
+      </div>
+      <div class="card">
+        <h4>Validar em paralelo</h4>
+        <p>
+          Landing + lista de espera para medir interesse e preço antes de
+          terminar o build. Se possível, corrigir as primeiras redações com
+          revisão manual por cima da IA.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <p class="eyebrow">Roadmap</p>
+    <h2>As 15 fases, agrupadas por objetivo de negócio</h2>
+    <p>
+      A ordem das fases no documento original está boa. O agrupamento abaixo só
+      torna explícito que elas não têm a mesma urgência: cada bloco entrega um
+      aprendizado antes do próximo começar.
+    </p>
+
+    <div class="block">
+      <div class="block-head">
+        <span class="bid">BLOCO A</span>
+        <h3>Produto mínimo pago</h3>
+      </div>
+      <p>Objetivo: colocar de pé algo que um aluno paga para usar. Ao fim, você sabe se há disposição a pagar.</p>
+      <ol class="phases">
+        <li><span class="pn">01</span><span class="pt"><b>Base do sistema</b><span>Estrutura Next.js, rotas, layout, sidebar, páginas vazias, identidade visual. — feito nesta sessão.</span></span></li>
+        <li><span class="pn">02</span><span class="pt"><b>Autenticação + banco</b><span>Supabase: e-mail/senha, Google, Apple, recuperação. Tabelas de usuário, progresso, favoritos, histórico.</span></span></li>
+        <li><span class="pn">03</span><span class="pt"><b>Biblioteca ENEM</b><span>Matéria → Tema → Conteúdo. Resumo rápido (grátis) e completo (premium). Recorrência ENEM. Progresso.</span></span></li>
+        <li><span class="pn">04</span><span class="pt"><b>Chat inteligente</b><span>Tutor, resumos personalizados, questões estilo ENEM, análise de imagem, memória por usuário.</span></span></li>
+        <li><span class="pn">06</span><span class="pt"><b>Redação</b><span>Envio por texto/imagem/PDF com OCR e confirmação. Correção por banca, nota por competência, banco de erros.</span></span></li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <span class="bid">BLOCO B</span>
+        <h3>Receita e retenção</h3>
+      </div>
+      <p>Objetivo: transformar uso em receita recorrente previsível e dar ao aluno motivo para voltar.</p>
+      <ol class="phases">
+        <li><span class="pn">08</span><span class="pt"><b>Assinaturas e monetização</b><span>Planos, controle de acesso no backend, Mercado Pago, webhooks, anúncios, cupons, painel financeiro.</span></span></li>
+        <li><span class="pn">05</span><span class="pt"><b>Progresso, favoritos, analytics</b><span>Evolução por matéria, detecção de pontos fracos, recomendações. Alimenta e é alimentado pelo chat.</span></span></li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <span class="bid">BLOCO C</span>
+        <h3>Escala e operação</h3>
+      </div>
+      <p>Objetivo: aguentar milhares de usuários sem quebrar e sem processo manual.</p>
+      <ol class="phases">
+        <li><span class="pn">07</span><span class="pt"><b>Comunidade de estudos</b><span>Grupos, publicações, moderação por IA, denúncias, envio de resumos para a Biblioteca.</span></span></li>
+        <li><span class="pn">09</span><span class="pt"><b>Admin, SEO, Blog, Analytics</b><span>Painel do administrador, aprovação de resumos, blog otimizado — canal de aquisição orgânica.</span></span></li>
+        <li><span class="pn">10</span><span class="pt"><b>Infraestrutura e performance</b><span>Cache, filas, armazenamento, CDN, monitoramento, backups, painel de saúde.</span></span></li>
+        <li><span class="pn">11</span><span class="pt"><b>Segurança, privacidade, LGPD</b><span>2FA, sessões, rate limiting, criptografia, consentimento, auditoria, exclusão de dados.</span></span></li>
+        <li><span class="pn">12</span><span class="pt"><b>Testes e prontidão para produção</b><span>Unitários, integração, E2E, carga, padronização de UI, checklist de lançamento.</span></span></li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <span class="bid">BLOCO D</span>
+        <h3>Crescimento</h3>
+      </div>
+      <p>Objetivo: uma máquina de aquisição e retenção que não dependa só de tráfego pago.</p>
+      <ol class="phases">
+        <li><span class="pn">13</span><span class="pt"><b>Deploy e lançamento</b><span>Produção na Vercel, domínio cogniai.com.br, landing de conversão, onboarding, beta faseado.</span></span></li>
+        <li><span class="pn">14</span><span class="pt"><b>Crescimento escalável</b><span>Funil, CRO, retenção, reativação, indicação com recompensa, gamificação, LTV/CAC.</span></span></li>
+        <li><span class="pn">15</span><span class="pt"><b>Inteligência evolutiva</b><span>Memória avançada, personalização por nível, ajuste de dificuldade, roteamento automático de modelo.</span></span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="riscos">
+    <p class="eyebrow">Pontos de atenção</p>
+    <h2>O que decidir antes de avançar</h2>
+
+    <div class="callout risk">
+      <span class="tag">Rever — "Manus IA" como API de produção</span>
+      <p>
+        Vários prompts tratam o Manus como uma API de geração de conteúdo em
+        escala. O Manus é um agente autônomo de uso interativo, não uma API de
+        produção para gerar milhares de resumos sob demanda. Substituir por um
+        pipeline próprio: um modelo de long-form (classe GPT-4 / Claude) +
+        a fila de revisão humana que as Fases 7 e 9 já preveem.
+      </p>
+    </div>
+
+    <div class="callout risk">
+      <span class="tag">Custo de IA × preço</span>
+      <p>
+        Detalhado na seção "O risco número 1". Definir os tetos de uso e a
+        estratégia de cache antes de abrir o Premium ao público — depois é
+        retrabalho e conta no vermelho.
+      </p>
+    </div>
+
+    <div class="callout flag">
+      <span class="tag">LGPD e menores de idade</span>
+      <p>
+        Boa parte do público terá menos de 18 anos. Tratamento de dados de menor
+        exige base legal específica e, em regra, consentimento do responsável.
+        Isso afeta cadastro, termos e a comunidade. Vale consultar um advogado
+        antes da Fase 2, não só na Fase 11.
+      </p>
+    </div>
+
+    <div class="callout flag">
+      <span class="tag">Precisão do conteúdo e responsabilidade</span>
+      <p>
+        Material de estudo com erro gera reclamação e risco de imagem. Manter
+        revisão humana no conteúdo publicado, deixar claro que resumos de IA são
+        apoio, e priorizar "baseado em conteúdo confiável" sobre "certeza
+        absoluta" — como o próprio documento já pede.
+      </p>
+    </div>
+
+    <div class="callout flag">
+      <span class="tag">Correção de redação × banca real</span>
+      <p>
+        A nota da IA não é a nota oficial. Separar bem "modo treino" (foco em
+        aprender) de "modo simulação" (estimativa de nota) e comunicar a margem
+        de erro evita frustração e comparação injusta com corretores humanos.
+      </p>
+    </div>
+
+    <div class="callout flag">
+      <span class="tag">Comunidade = custo operacional</span>
+      <p>
+        Moderar uma comunidade de menores dá trabalho e risco contínuos.
+        É defensável lançar sem ela e adicioná-la quando houver base de usuários
+        e capacidade de moderação — a arquitetura modular permite.
+      </p>
+    </div>
+
+    <div class="callout go">
+      <span class="tag">A favor — arquitetura modular</span>
+      <p>
+        A instrução de tratar cada fase como módulo independente que consome as
+        anteriores sem modificá-las está correta e deve ser mantida. É o que
+        permite cortar o escopo do MVP sem retrabalho depois.
+      </p>
+    </div>
+  </section>
+
+  <section id="arquitetura">
+    <p class="eyebrow">Arquitetura técnica</p>
+    <h2>Stack e decisões</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Camada</th>
+            <th>Escolha</th>
+            <th>Fase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Framework</td><td class="num">Next.js 14 (App Router) + TypeScript</td><td class="num">1</td></tr>
+          <tr><td>Estilo</td><td class="num">Tailwind CSS — tokens da identidade COGNI IA</td><td class="num">1</td></tr>
+          <tr><td>Auth + banco</td><td class="num">Supabase — Postgres, Auth, Storage, RLS</td><td class="num">2</td></tr>
+          <tr><td>IA</td><td class="num">OpenAI (chat) · Gemini (visão / OCR) · modelo long-form (resumos)</td><td class="num">4</td></tr>
+          <tr><td>Pagamentos</td><td class="num">Mercado Pago — recorrência, Pix, boleto, webhooks</td><td class="num">8</td></tr>
+          <tr><td>Cache / filas</td><td class="num">Upstash Redis + fila (QStash ou Inngest) para OCR, geração, PDF</td><td class="num">10</td></tr>
+          <tr><td>Deploy</td><td class="num">Vercel · domínio cogniai.com.br</td><td class="num">13</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Observação sobre filas: a Vercel não executa processos longos. OCR de
+      redação, geração de resumo e criação de PDF precisam rodar em fila desde a
+      primeira versão que os usar — não dá para deixar para a Fase 10 se a Fase 6
+      entrar antes.
+    </p>
+  </section>
+
+  <section id="proximos">
+    <p class="eyebrow">Próximos passos</p>
+    <h2>O que acontece agora</h2>
+    <ol class="next">
+      <li>
+        <strong>Instalar o Node.js</strong> (versão 18.18 ou superior, em
+        nodejs.org). Esta máquina ainda não tem — sem ele a Fase 1 não roda.
+      </li>
+      <li>
+        <strong>Rodar a Fase 1:</strong> na pasta <code>cogni-ia</code>,
+        executar <code>npm install</code> e depois <code>npm run dev</code>, e
+        abrir <code>localhost:3000</code>. Landing, login/cadastro e as 8 telas
+        do app já navegam.
+      </li>
+      <li>
+        <strong>Decidir o corte do MVP</strong> (seção "Recomendação"): quais
+        matérias entram na Biblioteca inicial, se a redação começa só com ENEM,
+        se a comunidade fica para depois.
+      </li>
+      <li>
+        <strong>Enviar os documentos de conteúdo.</strong> Há guias de biologia,
+        geografia, literatura e história na pasta Downloads — servem de base e de
+        referência de formato para modelar a Biblioteca da Fase 3.
+      </li>
+      <li>
+        <strong>Validar o preço</strong> com uma landing e lista de espera antes
+        de terminar o build das fases pagas.
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    COGNI IA · Documento de estratégia v1 · 30 ago 2026 · uso interno
+  </footer>
+</div>

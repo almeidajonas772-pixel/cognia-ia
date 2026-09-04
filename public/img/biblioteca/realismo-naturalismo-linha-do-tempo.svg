@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="240" fill="#0B1220"/>
+  <text x="40" y="40" fill="#E5E7EB" font-size="18" font-weight="600">Da idealização romântica à análise crítica</text>
+
+  <line x1="70" y1="120" x2="740" y2="120" stroke="#334155" stroke-width="2"/>
+
+  <g text-anchor="middle">
+    <circle cx="120" cy="120" r="5" fill="#64748B"/>
+    <text x="120" y="100" fill="#94A3B8" font-size="12">Romantismo</text>
+    <text x="120" y="150" fill="#64748B" font-size="10.5">até ~1880</text>
+
+    <circle cx="330" cy="120" r="6" fill="#3B82F6"/>
+    <text x="330" y="96" fill="#E5E7EB" font-size="12.5" font-weight="600">1881 · Realismo</text>
+    <text x="330" y="150" fill="#94A3B8" font-size="10.5">Memórias Póstumas de Brás Cubas</text>
+
+    <circle cx="530" cy="120" r="6" fill="#60A5FA"/>
+    <text x="530" y="96" fill="#E5E7EB" font-size="12.5" font-weight="600">1890 · Naturalismo</text>
+    <text x="530" y="150" fill="#94A3B8" font-size="10.5">O Cortiço (determinismo)</text>
+
+    <circle cx="700" cy="120" r="5" fill="#64748B"/>
+    <text x="700" y="100" fill="#94A3B8" font-size="12">1902 · Pré-Modernismo</text>
+    <text x="700" y="150" fill="#64748B" font-size="10.5">Os Sertões</text>
+  </g>
+
+  <text x="40" y="210" fill="#64748B" font-size="11">Poesia do mesmo período: Parnasianismo (objetividade, "arte pela arte") e Simbolismo (musicalidade, sugestão).</text>
+</svg>

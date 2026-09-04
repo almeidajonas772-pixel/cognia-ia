@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="340" fill="#0B1220"/>
+  <text x="40" y="40" fill="#E5E7EB" font-size="18" font-weight="600">Acelomado × pseudocelomado × celomado</text>
+  <text x="40" y="62" fill="#94A3B8" font-size="12.5">Corte transversal: o que muda é a cavidade e quanto dela é revestido por mesoderme.</text>
+
+  <!-- ACELOMADO -->
+  <g transform="translate(180,190)">
+    <circle r="60" fill="#3B82F6" fill-opacity="0.9"/>
+    <circle r="50" fill="#34D399" fill-opacity="0.85"/>
+    <circle r="15" fill="#F5B547"/>
+    <text y="98" fill="#E5E7EB" font-size="13" font-weight="600" text-anchor="middle">Acelomado</text>
+    <text y="116" fill="#94A3B8" font-size="11" text-anchor="middle">sem cavidade · platelmintos</text>
+  </g>
+
+  <!-- PSEUDOCELOMADO -->
+  <g transform="translate(400,190)">
+    <circle r="60" fill="#3B82F6" fill-opacity="0.9"/>
+    <circle r="52" fill="#0B1220"/>
+    <circle r="52" fill="none" stroke="#34D399" stroke-width="6"/>
+    <circle r="15" fill="#F5B547"/>
+    <text y="98" fill="#E5E7EB" font-size="13" font-weight="600" text-anchor="middle">Pseudocelomado</text>
+    <text y="116" fill="#94A3B8" font-size="11" text-anchor="middle">cavidade parcial · nematelmintos</text>
+  </g>
+
+  <!-- CELOMADO -->
+  <g transform="translate(620,190)">
+    <circle r="60" fill="#3B82F6" fill-opacity="0.9"/>
+    <circle r="52" fill="none" stroke="#34D399" stroke-width="6"/>
+    <circle r="46" fill="#0B1220"/>
+    <circle r="24" fill="none" stroke="#34D399" stroke-width="6"/>
+    <circle r="15" fill="#F5B547"/>
+    <text y="98" fill="#E5E7EB" font-size="13" font-weight="600" text-anchor="middle">Celomado</text>
+    <text y="116" fill="#94A3B8" font-size="11" text-anchor="middle">cavidade toda revestida · anelídeos+</text>
+  </g>
+
+  <!-- legenda -->
+  <g transform="translate(40,300)" font-size="11.5" fill="#94A3B8">
+    <rect x="0" y="-9" width="12" height="12" fill="#3B82F6"/><text x="18" y="1">ectoderme</text>
+    <rect x="110" y="-9" width="12" height="12" fill="#34D399"/><text x="128" y="1">mesoderme</text>
+    <rect x="230" y="-9" width="12" height="12" fill="#F5B547"/><text x="248" y="1">tubo digestório (endoderme)</text>
+    <rect x="470" y="-9" width="12" height="12" fill="#0B1220" stroke="#334155"/><text x="488" y="1">cavidade corporal</text>
+  </g>
+</svg>

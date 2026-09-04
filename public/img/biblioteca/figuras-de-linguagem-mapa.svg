@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="300" fill="#0B1220"/>
+  <text x="40" y="38" fill="#E5E7EB" font-size="18" font-weight="600">Figuras de linguagem — quatro grupos</text>
+
+  <rect x="330" y="60" width="140" height="40" rx="8" fill="#3B82F6" fill-opacity="0.2" stroke="#3B82F6"/>
+  <text x="400" y="85" fill="#E5E7EB" font-size="13" font-weight="600" text-anchor="middle">Figuras</text>
+
+  <g stroke="#334155" stroke-width="1.5" fill="none">
+    <path d="M360,100 C300,130 200,140 150,155"/>
+    <path d="M385,100 C360,130 330,140 320,155"/>
+    <path d="M415,100 C440,130 470,140 480,155"/>
+    <path d="M440,100 C500,130 600,140 650,155"/>
+  </g>
+
+  <g font-size="11" text-anchor="middle">
+    <rect x="60" y="158" width="170" height="110" rx="8" fill="#16223A" stroke="#334155"/>
+    <text x="145" y="180" fill="#60A5FA" font-weight="600" font-size="12.5">Palavra</text>
+    <text x="145" y="202" fill="#94A3B8">metáfora · comparação</text>
+    <text x="145" y="220" fill="#94A3B8">metonímia · catacrese</text>
+    <text x="145" y="238" fill="#94A3B8">sinestesia · perífrase</text>
+
+    <rect x="245" y="158" width="170" height="110" rx="8" fill="#16223A" stroke="#334155"/>
+    <text x="330" y="180" fill="#60A5FA" font-weight="600" font-size="12.5">Pensamento</text>
+    <text x="330" y="202" fill="#94A3B8">antítese · paradoxo</text>
+    <text x="330" y="220" fill="#94A3B8">ironia · eufemismo</text>
+    <text x="330" y="238" fill="#94A3B8">hipérbole · personificação</text>
+
+    <rect x="430" y="158" width="170" height="110" rx="8" fill="#16223A" stroke="#334155"/>
+    <text x="515" y="180" fill="#60A5FA" font-weight="600" font-size="12.5">Sintaxe</text>
+    <text x="515" y="202" fill="#94A3B8">elipse · zeugma</text>
+    <text x="515" y="220" fill="#94A3B8">anáfora · hipérbato</text>
+    <text x="515" y="238" fill="#94A3B8">polissíndeto · assíndeto</text>
+
+    <rect x="615" y="158" width="150" height="110" rx="8" fill="#16223A" stroke="#334155"/>
+    <text x="690" y="180" fill="#60A5FA" font-weight="600" font-size="12.5">Som</text>
+    <text x="690" y="202" fill="#94A3B8">aliteração</text>
+    <text x="690" y="220" fill="#94A3B8">assonância</text>
+    <text x="690" y="238" fill="#94A3B8">onomatopeia</text>
+  </g>
+</svg>

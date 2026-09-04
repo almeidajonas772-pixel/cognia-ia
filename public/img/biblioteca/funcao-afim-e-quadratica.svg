@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="420" fill="#0B1220"/>
+  <text x="40" y="38" fill="#E5E7EB" font-size="18" font-weight="600">Função afim (reta) e função quadrática (parábola)</text>
+
+  <!-- grade -->
+  <g stroke="#1E293B" stroke-width="1">
+    <line x1="80" y1="70" x2="80" y2="370"/><line x1="200" y1="70" x2="200" y2="370"/><line x1="320" y1="70" x2="320" y2="370"/>
+    <line x1="440" y1="70" x2="440" y2="370"/><line x1="560" y1="70" x2="560" y2="370"/><line x1="680" y1="70" x2="680" y2="370"/>
+    <line x1="80" y1="110" x2="720" y2="110"/><line x1="80" y1="170" x2="720" y2="170"/><line x1="80" y1="290" x2="720" y2="290"/><line x1="80" y1="350" x2="720" y2="350"/>
+  </g>
+  <!-- eixos -->
+  <line x1="80" y1="230" x2="730" y2="230" stroke="#475569" stroke-width="2"/>
+  <line x1="400" y1="60" x2="400" y2="375" stroke="#475569" stroke-width="2"/>
+  <text x="735" y="234" fill="#94A3B8" font-size="12">x</text>
+  <text x="406" y="66" fill="#94A3B8" font-size="12">y</text>
+
+  <!-- parábola: vértice (480,300) -->
+  <path d="M300,120 Q480,480 660,120" fill="none" stroke="#60A5FA" stroke-width="2.5"/>
+  <circle cx="480" cy="300" r="4" fill="#60A5FA"/>
+  <text x="490" y="322" fill="#60A5FA" font-size="11">vértice — mín. (xᵥ = −b/2a)</text>
+  <circle cx="384" cy="230" r="4" fill="#60A5FA"/><circle cx="576" cy="230" r="4" fill="#60A5FA"/>
+  <text x="330" y="255" fill="#94A3B8" font-size="10.5">raízes (Δ &gt; 0)</text>
+  <text x="620" y="130" fill="#60A5FA" font-size="12">f(x) = ax² + bx + c</text>
+
+  <!-- reta -->
+  <line x1="120" y1="330" x2="690" y2="110" stroke="#F5B547" stroke-width="2.5"/>
+  <circle cx="400" cy="220" r="4" fill="#F5B547"/>
+  <text x="410" y="210" fill="#F5B547" font-size="11">b — valor inicial</text>
+  <circle cx="425" cy="230" r="4" fill="#F5B547"/>
+  <text x="430" y="205" fill="#94A3B8" font-size="10.5" transform="translate(0,40)">raiz: x = −b/a</text>
+  <text x="140" y="345" fill="#F5B547" font-size="12">f(x) = ax + b</text>
+</svg>

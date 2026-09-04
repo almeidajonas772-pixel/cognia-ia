@@ -1,0 +1,7 @@
+/* TIME */
+COGNI IA — plataforma de estudos com IA para ENEM e vestibulares.
+
+/* SITE */
+Idioma: Português (Brasil)
+Stack: Next.js, TypeScript, Supabase, Tailwind CSS
+Contato: contato@cogniai.com.br

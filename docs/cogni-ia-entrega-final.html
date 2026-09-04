@@ -1,0 +1,604 @@
+<title>COGNI IA em 15 fases</title>
+<meta name="description" content="O produto completo em 15 fases: escopo, arquitetura e alinhamento com a base de conhecimento oficial." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+
+<style>
+  :root {
+    /* light — papel frio com viés azul */
+    --ground: #f6f8fc;
+    --surface: #ffffff;
+    --surface-2: #eef2fa;
+    --border: #d7deec;
+    --border-strong: #b9c4da;
+    --text: #0b1220;
+    --text-soft: #3d485c;
+    --muted: #6b7689;
+    --primary: #2563eb;
+    --secondary: #3b82f6;
+    --ring: #2563eb;
+    --good: #047857;
+    --warn: #b45309;
+    --shadow: 0 1px 2px rgba(11, 18, 32, .06), 0 8px 24px -12px rgba(11, 18, 32, .12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0b1220;
+      --surface: #111a2e;
+      --surface-2: #0e1727;
+      --border: #1f2b44;
+      --border-strong: #2b3a5a;
+      --text: #e5e7eb;
+      --text-soft: #c2cadb;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --secondary: #60a5fa;
+      --ring: #60a5fa;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 18px 40px -20px rgba(0, 0, 0, .6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0b1220;
+    --surface: #111a2e;
+    --surface-2: #0e1727;
+    --border: #1f2b44;
+    --border-strong: #2b3a5a;
+    --text: #e5e7eb;
+    --text-soft: #c2cadb;
+    --muted: #94a3b8;
+    --primary: #3b82f6;
+    --secondary: #60a5fa;
+    --ring: #60a5fa;
+    --good: #34d399;
+    --warn: #fbbf24;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 18px 40px -20px rgba(0, 0, 0, .6);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.62;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 56px);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .rail { display: none; }
+  @media (min-width: 1000px) {
+    .layout { grid-template-columns: 210px minmax(0, 1fr); gap: 56px; align-items: start; }
+    .rail { display: block; position: sticky; top: 0; height: 100vh; padding-top: 64px; overflow-y: auto; }
+  }
+
+  /* ---- rail ---- */
+  .rail nav { display: flex; flex-direction: column; gap: 2px; }
+  .rail a {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 7px;
+    border-left: 2px solid transparent;
+  }
+  .rail a:hover { color: var(--text); background: var(--surface-2); }
+  .rail a:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .rail .railhead {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); padding: 0 10px 10px; opacity: .7;
+  }
+
+  /* ---- identity / masthead ---- */
+  header.mast { padding: clamp(56px, 9vw, 104px) 0 40px; }
+  .brandline { display: flex; align-items: center; gap: 16px; }
+  .mark { width: 44px; height: 44px; display: block; flex: none; }
+  .brandline h1 {
+    font-family: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 44px);
+    letter-spacing: -.01em;
+    margin: 0;
+    line-height: 1;
+    color: var(--text);
+  }
+  .positioning {
+    font-size: clamp(20px, 2.6vw, 27px);
+    line-height: 1.4;
+    color: var(--text-soft);
+    max-width: 40ch;
+    margin: 26px 0 0;
+    text-wrap: balance;
+  }
+  .positioning em { color: var(--text); font-style: italic; }
+  .statusrow {
+    display: flex; flex-wrap: wrap; gap: 10px 12px; margin-top: 30px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px; letter-spacing: .02em;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 11px; border-radius: 999px;
+    border: 1px solid var(--border-strong); color: var(--text-soft);
+    background: var(--surface);
+  }
+  .chip.ok { color: var(--good); border-color: color-mix(in srgb, var(--good) 40%, var(--border)); }
+  .dot { width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+
+  /* ---- sections ---- */
+  section { padding: 44px 0; border-top: 1px solid var(--border); }
+  section:first-of-type { border-top: 0; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--primary); margin: 0 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ""; width: 13px; height: 13px; flex: none;
+    border: 2.5px solid currentColor; border-radius: 999px;
+    border-top-color: transparent; transform: rotate(45deg);
+  }
+  h2 {
+    font-family: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    font-weight: 600; font-size: clamp(22px, 3.4vw, 30px);
+    letter-spacing: -.01em; line-height: 1.15; margin: 0 0 8px;
+    color: var(--text); text-wrap: balance;
+  }
+  h2 + .lede { margin-top: 0; }
+  .lede { color: var(--text-soft); max-width: 62ch; margin: 6px 0 26px; }
+  p { max-width: 66ch; }
+  a.inline { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+
+  /* ---- phase progression ---- */
+  .phases { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+  .phase {
+    display: grid; grid-template-columns: 46px 1fr; gap: 18px;
+    padding: 18px 0; border-top: 1px solid var(--border);
+  }
+  .phase:first-child { border-top: 0; }
+  .phase .n {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-weight: 500; font-size: 13px; color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    padding-top: 3px;
+  }
+  .phase .body h3 {
+    font-family: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    font-weight: 600; font-size: 17px; letter-spacing: -.005em;
+    margin: 0 0 3px; color: var(--text);
+  }
+  .phase .body p { margin: 0; font-size: 16px; color: var(--text-soft); max-width: 68ch; }
+  .phase .body .files {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px; color: var(--muted); margin-top: 6px; letter-spacing: .01em;
+  }
+
+  /* ---- cards / grids ---- */
+  .grid { display: grid; gap: 16px; margin-top: 8px; }
+  @media (min-width: 620px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .card h3 {
+    font-family: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    font-weight: 600; font-size: 15px; margin: 0 0 10px; color: var(--text);
+    letter-spacing: .01em;
+  }
+  .card ul { margin: 0; padding-left: 18px; }
+  .card li { font-size: 15.5px; color: var(--text-soft); margin: 5px 0; }
+  .card li::marker { color: var(--secondary); }
+
+  /* layered list (IA layers) */
+  ol.layers { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: L; }
+  ol.layers li {
+    counter-increment: L;
+    display: grid; grid-template-columns: 30px 1fr; gap: 14px;
+    padding: 13px 0; border-top: 1px solid var(--border);
+  }
+  ol.layers li:first-child { border-top: 0; }
+  ol.layers li::before {
+    content: counter(L);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px; color: var(--primary); font-weight: 600;
+    border: 1px solid color-mix(in srgb, var(--primary) 45%, var(--border));
+    border-radius: 7px; width: 26px; height: 26px;
+    display: grid; place-items: center;
+  }
+  ol.layers b {
+    font-family: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    font-weight: 600; color: var(--text);
+  }
+  ol.layers span { color: var(--text-soft); font-size: 16px; }
+
+  /* ---- tables ---- */
+  .tablewrap { overflow-x: auto; margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  caption { text-align: left; color: var(--muted); font-size: 13px; padding: 0 0 10px; }
+  th, td { text-align: left; padding: 12px 16px; vertical-align: top; }
+  thead th {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr { border-top: 1px solid var(--border); }
+  tbody tr:first-child { border-top: 0; }
+  td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+  td .kb { color: var(--text-soft); }
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .86em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 1px 5px; border-radius: 5px;
+    color: var(--text);
+  }
+
+  /* ---- file tree ---- */
+  pre.tree {
+    margin: 8px 0 0; padding: 20px 22px; overflow-x: auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px; line-height: 1.85; color: var(--text-soft);
+    box-shadow: var(--shadow);
+  }
+  pre.tree b { color: var(--text); font-weight: 600; }
+  pre.tree .c { color: var(--muted); }
+
+  /* ---- ordered steps (setup) ---- */
+  ol.steps { margin: 8px 0 0; padding-left: 0; list-style: none; counter-reset: S; }
+  ol.steps li {
+    counter-increment: S;
+    padding: 11px 0 11px 40px; position: relative;
+    border-top: 1px solid var(--border); color: var(--text-soft); font-size: 16px;
+  }
+  ol.steps li:first-child { border-top: 0; }
+  ol.steps li::before {
+    content: counter(S, decimal-leading-zero);
+    position: absolute; left: 0; top: 12px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  ol.steps b { color: var(--text); font-weight: 600; }
+
+  .note {
+    margin-top: 20px; padding: 16px 18px; border-radius: 10px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    font-size: 15.5px; color: var(--text-soft);
+  }
+  .note b { color: var(--text); }
+
+  footer {
+    padding: 40px 0 72px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13.5px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    letter-spacing: .02em;
+  }
+  ::selection { background: color-mix(in srgb, var(--secondary) 32%, transparent); }
+</style>
+
+<div class="wrap layout">
+  <aside class="rail" aria-label="Seções">
+    <p class="railhead">COGNI IA</p>
+    <nav>
+      <a href="#produto">O produto</a>
+      <a href="#fases">As 15 fases</a>
+      <a href="#arquitetura">Arquitetura</a>
+      <a href="#alinhamento">Base de conhecimento</a>
+      <a href="#estrutura">Estrutura</a>
+      <a href="#deploy">Colocar no ar</a>
+      <a href="#marca">Marca</a>
+      <a href="#pendencias">O que falta</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="mast">
+      <div class="brandline">
+        <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.4 19.42 A10 10 0 1 0 23.07 8.93" stroke="var(--primary)" stroke-width="4.4" stroke-linecap="round" />
+          <circle cx="16" cy="16" r="2.5" fill="var(--primary)" />
+          <circle cx="23.07" cy="8.93" r="3.5" fill="var(--secondary)" />
+        </svg>
+        <h1>COGNI IA</h1>
+      </div>
+      <p class="positioning">
+        Uma ponte entre o conhecimento complexo e o público geral —
+        <em>do conhecimento complexo à clareza</em>. Plataforma de estudos para
+        ENEM e vestibulares em que a IA é uma camada que amplia o potencial de
+        quem estuda, não um fim em si.
+      </p>
+      <div class="statusrow">
+        <span class="chip ok"><span class="dot"></span>15 fases implementadas</span>
+        <span class="chip">Next.js 14 · Supabase · Vercel</span>
+        <span class="chip">freemium — R$&nbsp;0 / R$&nbsp;14,90 mês</span>
+        <span class="chip">roda em modo demonstração sem chaves</span>
+      </div>
+    </header>
+
+    <section id="produto">
+      <p class="eyebrow">O produto</p>
+      <h2>Uma plataforma completa, montada em módulos que se somam</h2>
+      <p class="lede">
+        Cada fase é um módulo independente que consome as anteriores sem
+        modificá-las. O resultado é um monólito modular: web responsiva, banco
+        Postgres com segurança por linha (RLS), IA desacoplada atrás de uma
+        interface única e chave que nunca chega ao navegador.
+      </p>
+      <div class="grid two">
+        <div class="card">
+          <h3>Para quem estuda</h3>
+          <ul>
+            <li>Biblioteca ENEM curada — resumo rápido (grátis) e completo (Premium), com diagramas autorais</li>
+            <li>Tutor de IA que explica passo a passo, gera resumos e questões no estilo da banca</li>
+            <li>Correção de redação por competência (ENEM, FUVEST e outras), com banco de erros recorrentes</li>
+            <li>Progresso, pontos fracos, sequência de estudo, conquistas e um "plano de hoje" que se adapta</li>
+            <li>Comunidade de estudos moderada — sem virar rede social</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Para operar o negócio</h3>
+          <ul>
+            <li>Painel admin: usuários, biblioteca, blog, monetização, moderação, saúde, consumo de IA, segurança</li>
+            <li>Assinaturas via Mercado Pago (cartão, Pix, boleto) + cupons + anúncios controlados</li>
+            <li>Fila de jobs, cache, logging estruturado e custo de IA por modelo</li>
+            <li>LGPD: consentimento, exportação e exclusão de dados, 2FA, auditoria</li>
+            <li>Modo de lançamento (lista de espera / manutenção) sem novo deploy</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="fases">
+      <p class="eyebrow">As 15 fases</p>
+      <h2>Da estrutura à IA que aprende com o aluno</h2>
+      <p class="lede">
+        A numeração é real: é a ordem de construção, e cada fase depende das
+        anteriores. Setup individual em <code>docs/fase-N-setup.md</code>;
+        migrações <code>0001</code>→<code>0013</code> na ordem.
+      </p>
+      <div class="phases">
+        <div class="phase"><div class="n">01</div><div class="body"><h3>Estrutura</h3><p>Next.js 14 App Router, TypeScript estrito, design system em tokens, navegação e páginas-esqueleto.</p></div></div>
+        <div class="phase"><div class="n">02</div><div class="body"><h3>Autenticação e banco</h3><p>Supabase (Postgres, Auth, Storage), RLS de acesso próprio, middleware de sessão, perfis.</p><p class="files">supabase/migrations/0001_init.sql</p></div></div>
+        <div class="phase"><div class="n">03</div><div class="body"><h3>Biblioteca ENEM</h3><p>Catálogo por área/tema/recorrência, resumo curto vs. completo (padrão dos guias do autor), busca full-text, 10 diagramas SVG autorais, seed versionado.</p><p class="files">content/biblioteca/ · public/img/biblioteca/ · 0002_biblioteca.sql</p></div></div>
+        <div class="phase"><div class="n">04</div><div class="body"><h3>Chat inteligente</h3><p>Tutor com streaming, modos e profundidade, memória do aluno, geração de resumo personalizado e de questões. Provedor mock sem chave.</p><p class="files">lib/ai/ · 0003_chat.sql</p></div></div>
+        <div class="phase"><div class="n">05</div><div class="body"><h3>Progresso e analytics</h3><p>Histórico unificado, tempo de estudo (heartbeat), domínio por matéria, pontos fracos, recomendações.</p><p class="files">0004_progresso.sql</p></div></div>
+        <div class="phase"><div class="n">06</div><div class="body"><h3>Redação</h3><p>Envio por texto/foto/PDF com OCR, correção por competência, nota, plano de melhoria, banco de erros recorrentes, catálogo de bancas.</p><p class="files">lib/redacao/ · 0005_redacao.sql</p></div></div>
+        <div class="phase"><div class="n">07</div><div class="body"><h3>Comunidade</h3><p>Grupos, publicações, comentários, curtidas, denúncias, submissão de material para a biblioteca. Moderação: heurística local + IA opcional.</p><p class="files">0006_comunidade.sql</p></div></div>
+        <div class="phase"><div class="n">08</div><div class="body"><h3>Monetização</h3><p>Mercado Pago (assinatura recorrente, Pix, boleto) + webhook + modo simulado. Motor central de <em>entitlements</em>, cupons, anúncios por posicionamento permitido.</p><p class="files">lib/billing/ · 0007_billing.sql</p></div></div>
+        <div class="phase"><div class="n">09</div><div class="body"><h3>Admin, SEO e blog</h3><p>Área <code>/admin</code> completa, blog público com metadata/OG/JSON-LD/sitemap/robots/ISR, rastreamento de páginas + Google Analytics, log de ações administrativas.</p><p class="files">0008_admin_blog.sql</p></div></div>
+        <div class="phase"><div class="n">10</div><div class="body"><h3>Infraestrutura</h3><p>Fila de jobs no Postgres (correção de redação assíncrona), cache KV (memória/Upstash), logging estruturado, custo de IA por chamada, upload validado por <em>magic bytes</em>, <code>/api/cron</code> único.</p><p class="files">lib/queue/ · lib/cache/ · lib/observability/ · 0009_infra.sql</p></div></div>
+        <div class="phase"><div class="n">11</div><div class="body"><h3>Segurança e LGPD</h3><p>Rate limiting, 2FA/TOTP, trilha de auditoria, criptografia AES-256-GCM e hash de IP, gestão de sessões com logout global, exportação e exclusão de dados com carência, banner de cookies, CSP.</p><p class="files">lib/security/ · lib/privacy/ · 0010_seguranca.sql</p></div></div>
+        <div class="phase"><div class="n">12</div><div class="body"><h3>Testes e produção</h3><p>Vitest (lógica pura), Playwright (smoke), <code>npm run check</code>, CI no GitHub Actions, error boundaries com telemetria, inventário de variáveis de ambiente, checklist de produção.</p><p class="files">test/ · e2e/ · .github/workflows/ci.yml</p></div></div>
+        <div class="phase"><div class="n">13</div><div class="body"><h3>Deploy, onboarding e SEO de lançamento</h3><p>Wizard <code>/bem-vindo</code>, cartão de primeiros passos, <code>site_config.launch</code> (lista de espera / manutenção com gate no middleware), manifest, ícones e OG gerados, JSON-LD Organization/WebSite/FAQ, guia de deploy na Vercel (região gru1).</p><p class="files">0011_onboarding.sql · vercel.json</p></div></div>
+        <div class="phase"><div class="n">14</div><div class="body"><h3>Crescimento e retenção</h3><p>XP, níveis (curva <code>50·N·(N-1)</code>), sequência com proteções, 16 conquistas com aviso, ranking semanal anônimo, meta semanal, recap e nudges por cron, indicação (<code>?ref=</code> → recompensa em XP para os dois).</p><p class="files">0012_crescimento.sql</p></div></div>
+        <div class="phase"><div class="n">15</div><div class="body"><h3>IA adaptativa</h3><p>Roteador que estima a complexidade e escolhe o modelo (barato no comum, forte em redação e questões difíceis); memória do aluno que evolui por job da fila e por cron; "plano de hoje" priorizado; painel <code>/admin/ia</code>.</p><p class="files">lib/ai/routing.ts · lib/ai/memory-evolve.ts · lib/ai/adaptive.ts · 0013_ia_adaptativa.sql</p></div></div>
+      </div>
+    </section>
+
+    <section id="arquitetura">
+      <p class="eyebrow">Arquitetura</p>
+      <h2>IA em cinco camadas, como pede a base</h2>
+      <p class="lede">
+        A requisição de IA carrega finalidade, contexto permitido, versão do
+        prompt, modelo e limites. A resposta passa por validação de formato,
+        moderação e regras de abstinência. A chave do provedor nunca chega ao
+        navegador.
+      </p>
+      <ol class="layers">
+        <li><span><b>Entrada e sessão</b> — autenticação, plano, limites de uso, rate limit, contexto do aluno.</span></li>
+        <li><span><b>Orquestração de prompt e modelo</b> — <code>lib/ai/routing.ts</code> estima a complexidade e roteia; <code>resilient.ts</code> dá retry, fallback para o mock e telemetria.</span></li>
+        <li><span><b>Recuperação de conteúdo aprovado</b> — a biblioteca curada entra no prompt; o tutor só recomenda links reais do catálogo.</span></li>
+        <li><span><b>Validação, moderação e apresentação</b> — parsing de JSON, heurística + IA de moderação, regras de "não afirmar certeza absoluta".</span></li>
+        <li><span><b>Observabilidade e auditoria</b> — <code>ai_calls</code> (tokens, duração, custo por modelo), <code>system_logs</code>, <code>security_events</code>, painéis <code>/admin/saude</code>, <code>/admin/consumo</code>, <code>/admin/ia</code>.</span></li>
+      </ol>
+      <div class="grid two" style="margin-top:26px">
+        <div class="card">
+          <h3>Stack de baixo custo</h3>
+          <ul>
+            <li>Next.js 14 (App Router, RSC, Server Actions) + TypeScript estrito</li>
+            <li>Supabase — Postgres, Auth, Storage, RLS; migrações versionadas</li>
+            <li>Vercel (região <code>gru1</code>, São Paulo) + cron a cada 5 min</li>
+            <li>Cache/rate-limit: memória do processo ou Upstash Redis</li>
+            <li>IA: OpenAI (texto) + Gemini (visão) — mock offline sem chave</li>
+            <li>Pagamentos: Mercado Pago — modo simulado sem token</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Roteamento de modelo (Fase 15)</h3>
+          <ul>
+            <li><code>chat</code>: modelo forte quando a complexidade ≥ 70, senão o econômico</li>
+            <li><code>summary</code> ≥ 55 · <code>questions</code> ≥ 60</li>
+            <li><code>essay</code>: sempre o modelo forte (alta aposta)</li>
+            <li><code>memory</code>: sempre o econômico (destilação)</li>
+            <li>Override editável em <code>site_config.model_routing</code></li>
+            <li>Princípio da base: <em>"não enviar todas as mensagens ao modelo premium"</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="alinhamento">
+      <p class="eyebrow">Base de conhecimento</p>
+      <h2>O que a documentação oficial pedia — e onde foi entregue</h2>
+      <p class="lede">
+        Extraído de "COGNI IA — Base de Conhecimento Ampliada" e do "Manual de
+        Identidade e Produção" (iCloud). A paleta e os princípios de IA batem
+        com o que foi construído.
+      </p>
+      <div class="tablewrap">
+        <table>
+          <caption>Requisito da base → implementação</caption>
+          <thead>
+            <tr><th>Requisito</th><th>Onde vive no código</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Web responsiva, monólito modular, isolamento por identidade</td><td class="kb">App Router + RLS por linha; toda consulta valida o dono no servidor</td></tr>
+            <tr><td>IA desacoplada por interface única; chave só no backend</td><td class="kb"><code>lib/ai/</code> (mock / openai / gemini); segredos em <code>.env.local</code>, cliente service-role nunca no browser</td></tr>
+            <tr><td>Roteamento de modelo; orçamento de tokens; cache; fallback; alerta de consumo</td><td class="kb">Fase 15 <code>routing.ts</code>; Fase 8 <code>feature_usage</code>; Fase 10 <code>ai_calls</code> + <code>resilient.ts</code></td></tr>
+            <tr><td>Cinco camadas de IA (entrada → orquestração → recuperação → validação → observabilidade)</td><td class="kb">Fases 4, 7, 10, 15 — descritas acima</td></tr>
+            <tr><td>Consentimento, auditoria, incidentes, faturamento no modelo de dados</td><td class="kb">Fases 8 e 11 — <code>user_consent</code>, <code>security_events</code>, <code>billing_events</code></td></tr>
+            <tr><td>Menor privilégio, MFA, backups, segredos fora do código</td><td class="kb">Fase 11 — 2FA/TOTP, service-role isolado, <code>.env.example</code> documentado</td></tr>
+            <tr><td>Não rastrear menores para marketing por padrão</td><td class="kb">Fase 11 — consentimento de analytics/marketing começa desligado</td></tr>
+            <tr><td>Bucket privado com URL temporária; retenção e exclusão</td><td class="kb">Fase 11 — <code>signedUrl</code> de 5 min; cron <code>purge_old_telemetry</code> / <code>purge_due_deletions</code></td></tr>
+            <tr><td>Paleta oficial <span class="mono">#0B1220 · #111A2E · #3B82F6 · #60A5FA · #E5E7EB · #94A3B8</span></td><td class="kb"><code>tailwind.config.ts</code> + <code>lib/brand.ts</code> (fonte única)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="estrutura">
+      <p class="eyebrow">Estrutura</p>
+      <h2>Onde as coisas moram</h2>
+      <pre class="tree">cogni-ia/
+  app/
+    <b>(marketing)/</b>      <span class="c"># landing, /precos (com FAQ), /blog, /privacidade, /termos</span>
+    <b>(auth)/</b>           <span class="c"># login, cadastro, recuperação — ou lista de espera</span>
+    <b>(app)/</b>            <span class="c"># área logada: dashboard, biblioteca, chat, redação,</span>
+                     <span class="c">#   comunidade, conquistas, convidar, perfil, admin, bem-vindo</span>
+    <b>api/</b>              <span class="c"># chat (stream), redacao, billing, cron, jobs/run,</span>
+                     <span class="c">#   upload, security, privacy, waitlist, observability</span>
+    icon · apple-icon · opengraph-image · manifest · sitemap · robots
+  <b>lib/</b>
+    ai/              <span class="c"># provedores + prompts + routing + adaptive + memory-evolve + resilient</span>
+    biblioteca · chat · redacao · comunidade · progresso · billing
+    security/        <span class="c"># crypto, rate-limit, audit, sessions, mfa</span>
+    privacy/         <span class="c"># consent, export (LGPD), deletion, collect</span>
+    queue · cache · observability · admin · blog · analytics
+    onboarding · gamification · referral · launch · env · <b>brand</b>
+  <b>components/</b>        <span class="c"># brand/Logo, ui, layout, + um diretório por domínio</span>
+  <b>supabase/migrations/</b>  <span class="c"># 0001 … 0013, rodar em ordem</span>
+  <b>test/ · e2e/</b>       <span class="c"># Vitest + Playwright</span>
+  <b>docs/</b>              <span class="c"># fase-2 … fase-15-setup.md · producao-checklist.md · marca.md</span>
+  vercel.json · .github/workflows/ci.yml · .env.example</pre>
+    </section>
+
+    <section id="deploy">
+      <p class="eyebrow">Colocar no ar</p>
+      <h2>Ordem para o primeiro deploy</h2>
+      <p class="lede">Detalhe completo em <code>docs/fase-13-setup.md</code> e <code>docs/producao-checklist.md</code>.</p>
+      <ol class="steps">
+        <li><b>Instalar e verificar</b> — <code>npm install</code>, depois <code>npm run check</code> (typecheck + lint + testes). Commitar o <code>package-lock.json</code>.</li>
+        <li><b>Supabase</b> — criar o projeto em <code>sa-east-1</code>; rodar as migrações <code>0001</code>→<code>0013</code> no SQL Editor, em ordem.</li>
+        <li><b>Storage</b> — criar os buckets <code>avatars</code>, <code>blog</code> (públicos), <code>essays</code>, <code>materials</code>, <code>exports</code> (privados).</li>
+        <li><b>Seed</b> — <code>npm run seed:biblioteca</code>; inserir o primeiro administrador em <code>app_admins</code>.</li>
+        <li><b>Vercel</b> — importar o repositório; definir as variáveis de ambiente (obrigatórias: <code>NEXT_PUBLIC_SUPABASE_URL</code>, <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>; recomendadas: <code>SUPABASE_SERVICE_ROLE_KEY</code>, <code>NEXT_PUBLIC_APP_URL</code>, <code>CRON_SECRET</code>, <code>APP_ENCRYPTION_KEY</code>, <code>MERCADOPAGO_*</code>).</li>
+        <li><b>Domínio e integrações</b> — apontar <code>cogniai.com.br</code>; redirect do Supabase Auth para <code>/auth/callback</code>; webhook do Mercado Pago; o cron de <code>vercel.json</code> já chama <code>/api/cron</code> a cada 5 min.</li>
+        <li><b>Smoke em produção</b> — cadastro, login, chat, envio de redação, checkout, <code>/admin/saude</code> no verde.</li>
+      </ol>
+      <p class="note">
+        <b>Sem chaves externas o site funciona</b> em modo demonstração: IA mock,
+        checkout simulado, cache em memória. Cada variável de ambiente preenchida
+        liga um recurso real — o boot registra o que está faltando
+        (<code>lib/env.ts</code>).
+      </p>
+    </section>
+
+    <section id="marca">
+      <p class="eyebrow">Marca</p>
+      <h2>Identidade — "Neo-Minimalismo Educativo"</h2>
+      <p class="lede">
+        Formas limpas e geométricas, foco absoluto na legibilidade. Voz curiosa,
+        acessível, autoritária mas amigável. Referência em
+        <a class="inline" href="#">docs/marca.md</a> e fonte única em <code>lib/brand.ts</code>.
+      </p>
+      <div class="grid two">
+        <div class="card">
+          <h3>O símbolo</h3>
+          <p style="max-width:none;font-size:15.5px;color:var(--text-soft);margin:0">
+            Um anel aberto — o "C" de Cogni e a órbita da exploração — com um nó
+            guia (o "Explorador Cogni" do manual) e uma faísca central (o
+            insight). Renderizado inline para herdar as cores do tema; aplicado
+            em cabeçalho, autenticação, sidebar, favicon, ícone iOS e imagem de
+            compartilhamento.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Tipografia e cor</h3>
+          <ul>
+            <li>App: <b>Inter</b> (sans-serif moderna para toda a interface)</li>
+            <li>Este documento: Bricolage Grotesque + Newsreader + IBM Plex Mono</li>
+            <li>Paleta única confirmada na base de conhecimento (§7)</li>
+            <li>A paleta por disciplina do manual (Exatas/Humanas/Tecnologia/Biológicas) fica reservada para o conteúdo de vídeo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pendencias">
+      <p class="eyebrow">O que falta</p>
+      <h2>Pontos honestos antes do lançamento</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Precisa de você</h3>
+          <ul>
+            <li>Rodar <code>npm install</code> / <code>npm run build</code> numa máquina com Node — o código foi escrito sem execução local</li>
+            <li>Provisionar Supabase + Vercel e preencher as variáveis de ambiente reais</li>
+            <li>Aplicar as 13 migrações e criar os buckets</li>
+            <li>Contratar as chaves de OpenAI, Gemini e Mercado Pago quando for para produção</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Logo</h3>
+          <p style="max-width:none;font-size:15.5px;color:var(--text-soft);margin:0">
+            Não foi possível identificar os arquivos originais da logo entre as
+            centenas de fotos da biblioteca do iCloud. O símbolo atual é um SVG
+            <b>fiel ao manual</b> (Neo-Minimalismo, cores oficiais). Para trocar
+            pela sua arte: coloque <code>logo.svg</code> em
+            <code>public/img/brand/</code> e ajuste <code>components/brand/Logo.tsx</code>
+            — passo a passo em <code>docs/marca.md</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      COGNI IA · 15 fases · monólito modular · pronto para provisionamento e deploy
+    </footer>
+  </main>
+</div>
+
+<script>
+  // marcador de seção ativa no rail (progressivo, não altera o repouso)
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var a = map[e.target.id];
+        if (!a) return;
+        if (e.isIntersecting) {
+          links.forEach(function (l) { l.style.color = ''; l.style.borderLeftColor = 'transparent'; });
+          a.style.color = 'var(--text)';
+          a.style.borderLeftColor = 'var(--primary)';
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
+  })();
+</script>

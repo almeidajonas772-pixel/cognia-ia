@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="300" fill="#0B1220"/>
+  <text x="40" y="40" fill="#E5E7EB" font-size="18" font-weight="600">Média × mediana com um valor extremo</text>
+  <text x="40" y="62" fill="#94A3B8" font-size="12.5">Salários (mil): 2, 2, 3, 3, 4, 4, 40</text>
+
+  <!-- linha -->
+  <line x1="70" y1="190" x2="600" y2="190" stroke="#475569" stroke-width="2"/>
+  <line x1="640" y1="190" x2="740" y2="190" stroke="#475569" stroke-width="2" stroke-dasharray="2 6"/>
+  <text x="620" y="205" fill="#64748B" font-size="14">//</text>
+
+  <!-- dots do agrupamento (v -> x = 70 + v*40) -->
+  <g fill="#60A5FA">
+    <circle cx="150" cy="190" r="7"/><circle cx="150" cy="172" r="7"/>
+    <circle cx="190" cy="190" r="7"/><circle cx="190" cy="172" r="7"/>
+    <circle cx="230" cy="190" r="7"/><circle cx="230" cy="172" r="7"/>
+  </g>
+  <circle cx="710" cy="190" r="9" fill="#FB7185"/>
+  <text x="710" y="220" fill="#FB7185" font-size="12" text-anchor="middle">40 (extremo)</text>
+
+  <!-- mediana -->
+  <line x1="190" y1="120" x2="190" y2="205" stroke="#34D399" stroke-width="2"/>
+  <text x="190" y="112" fill="#34D399" font-size="12" text-anchor="middle">Mediana = 3</text>
+  <text x="190" y="245" fill="#94A3B8" font-size="10.5" text-anchor="middle">valor central · resiste ao extremo</text>
+
+  <!-- média -->
+  <line x1="405" y1="120" x2="405" y2="205" stroke="#F5B547" stroke-width="2"/>
+  <text x="405" y="112" fill="#F5B547" font-size="12" text-anchor="middle">Média ≈ 8,3</text>
+  <path d="M300,150 C340,150 380,150 400,150" fill="none" stroke="#F5B547" stroke-width="1.6" marker-end="url(#m)"/>
+  <defs><marker id="m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#F5B547"/></marker></defs>
+  <text x="405" y="245" fill="#94A3B8" font-size="10.5" text-anchor="middle">puxada pelo valor extremo</text>
+</svg>
