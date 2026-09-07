@@ -14,6 +14,12 @@ import type {
   Priority,
 } from "@/lib/redacao/types";
 
+type Rubric = {
+  scaleMax: number;
+  criteria: { name: string; weight?: number; max?: number; description?: string }[];
+  notes?: string;
+};
+
 const PRIORITIES: Priority[] = ["critico", "importante", "medio", "bom"];
 const asPriority = (v: unknown): Priority =>
   PRIORITIES.includes(v as Priority) ? (v as Priority) : "medio";
@@ -215,19 +221,17 @@ export async function runCorrection(
     .eq("id", essayId);
 
   // rubrica personalizada?
-  let rubric: {
-    scaleMax: number;
-    criteria: { name: string; weight?: number; max?: number; description?: string }[];
-    notes?: string;
-  } | null = null;
+  let rubric: Rubric | null = null;
   if (essay.rubric_id) {
     const { data: r } = await supabase
       .from("essay_rubrics")
       .select("parsed")
       .eq("id", essay.rubric_id)
       .maybeSingle();
-    const parsed = r?.parsed as typeof rubric;
-    if (parsed?.criteria?.length) rubric = parsed;
+    const parsed = (r?.parsed ?? null) as unknown as Rubric | null;
+    if (parsed && Array.isArray(parsed.criteria) && parsed.criteria.length > 0) {
+      rubric = parsed;
+    }
   }
 
   const banca = getBanca(essay.banca) ?? getBanca("enem")!;
