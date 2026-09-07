@@ -9,6 +9,16 @@ import { Card, CardBody } from "@/components/ui/Card";
 
 type Mode = "login" | "cadastro" | "recuperar" | "redefinir";
 
+/**
+ * Login social só aparece quando o provedor está de fato configurado no Supabase.
+ * Ative definindo, na Vercel, NEXT_PUBLIC_OAUTH_PROVIDERS="google" (ou "google,apple")
+ * DEPOIS de habilitar o provedor em Supabase → Authentication → Providers.
+ */
+const OAUTH_PROVIDERS = (process.env.NEXT_PUBLIC_OAUTH_PROVIDERS ?? "")
+  .split(",")
+  .map((p) => p.trim().toLowerCase())
+  .filter((p): p is "google" | "apple" => p === "google" || p === "apple");
+
 const COPY: Record<Mode, { title: string; subtitle: string; cta: string }> = {
   login: {
     title: "Entrar",
@@ -66,7 +76,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [done, setDone] = useState<string | null>(null);
 
   const copy = COPY[mode];
-  const showOAuth = mode === "login" || mode === "cadastro";
+  const showOAuth =
+    (mode === "login" || mode === "cadastro") && OAUTH_PROVIDERS.length > 0;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -170,22 +181,26 @@ export function AuthForm({ mode }: { mode: Mode }) {
             {showOAuth && (
               <>
                 <div className="space-y-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => handleOAuth("google")}
-                  >
-                    Continuar com Google
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => handleOAuth("apple")}
-                  >
-                    Continuar com Apple
-                  </Button>
+                  {OAUTH_PROVIDERS.includes("google") && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => handleOAuth("google")}
+                    >
+                      Continuar com Google
+                    </Button>
+                  )}
+                  {OAUTH_PROVIDERS.includes("apple") && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => handleOAuth("apple")}
+                    >
+                      Continuar com Apple
+                    </Button>
+                  )}
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="h-px flex-1 bg-border" />

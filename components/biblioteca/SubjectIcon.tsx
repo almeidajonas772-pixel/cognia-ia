@@ -7,6 +7,12 @@ import {
   Globe2,
   PenLine,
   Library,
+  Atom,
+  FlaskConical,
+  Brain,
+  Users,
+  Palette,
+  Dumbbell,
   type LucideIcon,
 } from "lucide-react";
 
@@ -18,6 +24,12 @@ const MAP: Record<string, LucideIcon> = {
   Landmark,
   Globe2,
   PenLine,
+  Atom,
+  FlaskConical,
+  Brain,
+  Users,
+  Palette,
+  Dumbbell,
 };
 
 export function SubjectIcon({

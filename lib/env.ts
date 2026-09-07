@@ -74,6 +74,13 @@ export const ENV_VARS: EnvVar[] = [
     fallback: "webhook aceita sem verificação de segredo",
   },
   {
+    name: "NEXT_PUBLIC_OAUTH_PROVIDERS",
+    required: false,
+    phase: 2,
+    purpose: 'Login social visível: "google", "apple" ou "google,apple"',
+    fallback: "cadastro/login só por e-mail e senha (botões sociais ocultos)",
+  },
+  {
     name: "NEXT_PUBLIC_GA_ID",
     required: false,
     phase: 9,
