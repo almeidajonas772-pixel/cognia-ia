@@ -21,22 +21,39 @@ export type Candidate = {
 
 type Routes = Record<AiTask, Candidate[]>;
 
+/**
+ * Modelos padrão. Vêm de variáveis de ambiente para permitir usar um provedor
+ * gratuito compatível com a API da OpenAI (Groq, Gemini via endpoint OpenAI,
+ * OpenRouter, Cerebras...) sem tocar no código:
+ *
+ *   OPENAI_BASE_URL=https://api.groq.com/openai/v1
+ *   OPENAI_API_KEY=<sua chave grátis>
+ *   OPENAI_CHAT_MODEL=llama-3.1-8b-instant        (modelo "comum")
+ *   OPENAI_CHAT_MODEL_STRONG=llama-3.3-70b-versatile  (modelo "forte"; opcional)
+ *
+ * Sem nada disso, mantém os modelos da OpenAI. Ajuste fino continua possível
+ * por `site_config.model_routing` no banco.
+ */
+const MODEL_CHEAP = process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini";
+const MODEL_STRONG =
+  process.env.OPENAI_CHAT_MODEL_STRONG || process.env.OPENAI_CHAT_MODEL || "gpt-4o";
+
 /** Padrões — sobrescritos por `site_config.model_routing` (merge por tarefa). */
 export const DEFAULT_ROUTES: Routes = {
   chat: [
-    { provider: "openai", model: "gpt-4o", minComplexity: 70 },
-    { provider: "openai", model: "gpt-4o-mini", minComplexity: 0 },
+    { provider: "openai", model: MODEL_STRONG, minComplexity: 70 },
+    { provider: "openai", model: MODEL_CHEAP, minComplexity: 0 },
   ],
   summary: [
-    { provider: "openai", model: "gpt-4o", minComplexity: 55 },
-    { provider: "openai", model: "gpt-4o-mini", minComplexity: 0 },
+    { provider: "openai", model: MODEL_STRONG, minComplexity: 55 },
+    { provider: "openai", model: MODEL_CHEAP, minComplexity: 0 },
   ],
   questions: [
-    { provider: "openai", model: "gpt-4o", minComplexity: 60 },
-    { provider: "openai", model: "gpt-4o-mini", minComplexity: 0 },
+    { provider: "openai", model: MODEL_STRONG, minComplexity: 60 },
+    { provider: "openai", model: MODEL_CHEAP, minComplexity: 0 },
   ],
-  essay: [{ provider: "openai", model: "gpt-4o", minComplexity: 0 }],
-  memory: [{ provider: "openai", model: "gpt-4o-mini", minComplexity: 0 }],
+  essay: [{ provider: "openai", model: MODEL_STRONG, minComplexity: 0 }],
+  memory: [{ provider: "openai", model: MODEL_CHEAP, minComplexity: 0 }],
 };
 
 const COMPLEXITY_KEYWORDS = [

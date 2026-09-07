@@ -430,6 +430,16 @@ O site já está no ar e funciona em "modo demonstração". Cada passo abaixo
 **liga um recurso de verdade**. Faça **um por vez**, sem pressa. Nenhum deles
 mexe no código — é sempre: **pegar uma chave → colar na Vercel → Redeploy**.
 
+**Custo:** dá para ligar quase tudo **sem pagar nada no começo**:
+
+| Recurso | Opção grátis (sem cartão) | Quando custa |
+| --- | --- | --- |
+| IA de texto (Passo 23) | Groq / Gemini — tier grátis | só se passar do limite grátis diário |
+| OCR da redação (Passo 24) | Gemini AI Studio — tier grátis | idem |
+| Pagamentos (Passo 25) | Mercado Pago — conta grátis | só uma taxa **por venda** (nada adiantado) |
+| Domínio (Passo 26) | usar o endereço `.vercel.app` grátis | só se comprar um domínio (~R$ 40/ano) |
+| Analytics (Passo 27) | Google Analytics — grátis | nunca |
+
 ### As duas micro-tarefas que se repetem (leia uma vez)
 
 **TAREFA A — adicionar/editar uma variável na Vercel:**
@@ -460,41 +470,63 @@ mexe no código — é sempre: **pegar uma chave → colar na Vercel → Redeplo
 
 ---
 
-### Passo 23 — IA de texto (chat e correção de redação de verdade)
+### Passo 23 — IA de texto (chat e correção de redação de verdade) — GRÁTIS
 
 Sem isso, o chat e a correção de redação respondem textos de exemplo ("modo
-demonstração"). Com a chave da OpenAI, passam a usar IA real.
+demonstração"). O site aceita **qualquer** provedor compatível com a API da
+OpenAI — vamos usar o **Groq**, que é grátis, rápido e **não pede cartão**.
 
-1. Abra https://platform.openai.com e crie a conta (ou entre)
-2. No canto superior direito, clique no seu nome → **Your profile**
-3. No menu da esquerda, clique em **API keys** (ou abra direto
-   https://platform.openai.com/api-keys)
-4. Clique no botão **Create new secret key**
-5. Dê um nome qualquer (ex.: `cogni-ia`) → **Create secret key**
-6. Vai aparecer uma chave começando com `sk-...`. Clique em **Copy** e cole
-   num bloco de notas por enquanto (ela **só aparece uma vez**)
-7. Agora ative o pagamento (a OpenAI cobra por uso, centavos por mensagem):
-   no menu da esquerda clique em **Billing** → **Add payment details** →
-   cadastre um cartão
-8. Ainda em **Billing**, defina um teto de gasto: **Usage limits** →
-   em "Monthly budget" coloque um valor baixo pra segurança (ex.: **US$ 10**)
-   → **Save**
-9. Faça a **TAREFA A**: variável **`OPENAI_API_KEY`** = a chave `sk-...` que
-   você copiou
-10. Faça a **TAREFA B** (Redeploy)
+**23.1 — Pegar a chave grátis no Groq**
+
+1. Abra https://console.groq.com e entre (dá para entrar com a conta Google)
+2. No menu da esquerda, clique em **API Keys**
+3. Clique em **Create API Key**
+4. Nome qualquer (ex.: `cogni-ia`) → **Submit**
+5. Vai aparecer uma chave começando com `gsk_...`. Clique em **Copy** e cole
+   num bloco de notas (ela **só aparece uma vez**)
+
+**23.2 — Colocar 4 variáveis na Vercel**
+
+Faça a **TAREFA A** uma vez para cada linha desta tabela:
+
+| Key (nome) | Value (valor) |
+| --- | --- |
+| `OPENAI_API_KEY` | a chave `gsk_...` que você copiou |
+| `OPENAI_BASE_URL` | `https://api.groq.com/openai/v1` |
+| `OPENAI_CHAT_MODEL` | `llama-3.1-8b-instant` |
+| `OPENAI_CHAT_MODEL_STRONG` | `llama-3.3-70b-versatile` |
+
+**23.3 — Redeploy**
+
+Faça a **TAREFA B**.
 
 **Como saber se funcionou:**
 
 - [ ] Entre no site → abra o **Chat** → mande uma pergunta
 - [ ] A resposta **não** tem mais o aviso de "modo demonstração"
+- [ ] Site → **Redação** → envie um texto → a correção sai com nota e
+      comentários (não o texto de exemplo)
 - [ ] `/admin/saude` → o cartão de IA aparece como configurado
+
+> **Alternativa ao Groq:** o Gemini também tem tier grátis sem cartão. Use as
+> mesmas 4 variáveis, trocando os valores por:
+> `OPENAI_BASE_URL` = `https://generativelanguage.googleapis.com/v1beta/openai` ·
+> `OPENAI_CHAT_MODEL` = `gemini-2.0-flash` ·
+> `OPENAI_CHAT_MODEL_STRONG` = `gemini-2.5-flash` ·
+> `OPENAI_API_KEY` = a chave do AI Studio (a mesma do Passo 24 serve).
+>
+> **Se um dia bater no limite grátis:** aí sim vale um provedor pago (a própria
+> OpenAI, com `OPENAI_BASE_URL` = `https://api.openai.com/v1`,
+> `OPENAI_CHAT_MODEL` = `gpt-4o-mini`, `OPENAI_CHAT_MODEL_STRONG` = `gpt-4o` e
+> um cartão em platform.openai.com → Billing). Só trocar as 4 variáveis.
 
 ---
 
-### Passo 24 — IA de imagem (ler foto de redação manuscrita / OCR)
+### Passo 24 — IA de imagem (ler foto de redação manuscrita / OCR) — GRÁTIS
 
 Sem isso, quem manda a **foto** de uma redação escrita à mão recebe uma
-transcrição de exemplo. Com a chave do Google, o texto é lido de verdade.
+transcrição de exemplo. Com a chave do Google, o texto é lido de verdade. O
+AI Studio tem **tier grátis sem cartão**.
 
 1. Abra https://aistudio.google.com e entre com sua conta Google
 2. No menu da esquerda, clique em **Get API key** (ou abra direto
@@ -516,10 +548,15 @@ transcrição de exemplo. Com a chave do Google, o texto é lido de verdade.
 
 ---
 
-### Passo 25 — Pagamentos do Premium (Mercado Pago)
+### Passo 25 — Pagamentos do Premium (Mercado Pago) — sem custo adiantado
 
 Sem isso, o botão "Assinar Premium" roda em modo simulado (confirma sozinho,
 sem cobrar). Com o Mercado Pago, a assinatura é cobrada de verdade.
+
+Criar a conta e integrar é **de graça**. O Mercado Pago só desconta uma
+**taxa por venda** (um percentual de cada assinatura paga) — você não paga
+nada adiantado nem mensalidade. Só faça este passo quando for **realmente
+começar a vender** o Premium; até lá, o modo simulado não atrapalha nada.
 
 **25.1 — Pegar o Access Token de produção**
 
@@ -584,10 +621,14 @@ node -e "console.log(require('crypto').randomBytes(24).toString('hex'))"
 
 ---
 
-### Passo 26 — Domínio próprio (ex.: `cogniai.com.br`)
+### Passo 26 — Domínio próprio (ex.: `cogniai.com.br`) — opcional, pago
 
-Troca o endereço `xxxxx.vercel.app` pelo seu domínio. Você precisa **já ter
-comprado** o domínio (no Registro.br, GoDaddy, Hostinger, etc.).
+**Não é obrigatório.** O endereço grátis `cognia-ia.vercel.app` funciona
+perfeitamente para lançar, tem cadeado (HTTPS) e nunca expira. Só faça este
+passo se quiser um endereço mais bonito — aí sim precisa **comprar** o domínio
+(um `.com.br` custa ~R$ 40/ano no Registro.br).
+
+Depois de comprado (no Registro.br, GoDaddy, Hostinger, etc.):
 
 1. Faça login onde você comprou o domínio e deixe essa aba aberta
 2. Na Vercel → seu projeto → **Settings** → menu da esquerda **Domains**
