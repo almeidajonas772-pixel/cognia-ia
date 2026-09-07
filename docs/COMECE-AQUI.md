@@ -426,46 +426,250 @@ Se tudo isso passou: **está no ar e funcional.** 🎉
 
 ## PARTE 8 — Deixar "de verdade" (quando quiser, um de cada vez)
 
-Cada item abaixo é: **pegar a chave → adicionar na Vercel (Settings →
-Environment Variables → Add) → Redeploy**. Nada de mexer no código.
+O site já está no ar e funciona em "modo demonstração". Cada passo abaixo
+**liga um recurso de verdade**. Faça **um por vez**, sem pressa. Nenhum deles
+mexe no código — é sempre: **pegar uma chave → colar na Vercel → Redeploy**.
 
-### 8.1 — IA de texto (chat, resumos, questões, correção de redação)
+### As duas micro-tarefas que se repetem (leia uma vez)
 
-1. https://platform.openai.com/api-keys → **Create new secret key** → copie
-2. Em **Settings → Billing** adicione um cartão e um limite (ex.: **US$ 10**)
-3. Vercel → nova variável: `OPENAI_API_KEY` = a chave. Redeploy.
+**TAREFA A — adicionar/editar uma variável na Vercel:**
 
-### 8.2 — IA de imagem (OCR da foto da redação)
+1. Abra https://vercel.com e faça login
+2. Clique no seu projeto (**cognia-ia**)
+3. No menu de cima, clique em **Settings**
+4. No menu da esquerda, clique em **Environment Variables**
+5. Para **adicionar**: no campo **Key** digite o NOME da variável; no campo
+   **Value** cole o VALOR; deixe marcados os 3 ambientes (Production, Preview,
+   Development); clique **Save**
+6. Para **editar** uma que já existe: ache a linha, clique nos **três
+   pontinhos** (**⋯**) à direita → **Edit** → troque o Value → **Save**
+7. Se aparecer um aviso sobre "Sensitive" / "public prefix": escolha o tipo
+   **Plain Text** (ou **Config**), nunca **Sensitive**, e salve
 
-1. https://aistudio.google.com/apikey → **Create API key** → copie
-2. Vercel → `GEMINI_API_KEY` = a chave. Redeploy.
+**TAREFA B — fazer Redeploy (aplicar o que você mudou):**
 
-### 8.3 — Pagamentos (Mercado Pago)
+1. Na Vercel, no seu projeto, clique na aba **Deployments** (menu de cima)
+2. Na **primeira linha** da lista, clique nos **três pontinhos** (**⋯**) →
+   **Redeploy**
+3. Na janelinha que abre, clique **Redeploy** de novo (pode deixar marcado
+   "Use existing Build Cache")
+4. Espere ~2 minutos até a primeira linha ficar **Ready** (bolinha verde)
 
-1. https://www.mercadopago.com.br/developers → **Suas integrações** → crie uma
-   aplicação → **Credenciais de produção** → copie o **Access Token**
-2. Vercel:
-   - `MERCADOPAGO_ACCESS_TOKEN` = o token
-   - `MERCADOPAGO_WEBHOOK_SECRET` = invente uma senha longa (letras+números)
-   Redeploy.
-3. No Mercado Pago, em **Webhooks / Notificações**, cadastre a URL:
-   `https://SUA-URL/api/billing/webhook?secret=O_MESMO_WEBHOOK_SECRET`
+> Toda vez que um passo abaixo disser "faça a TAREFA A" ou "faça a TAREFA B",
+> é só seguir a receita acima.
 
-### 8.4 — Domínio próprio (cogniai.com.br)
+---
 
-1. Vercel → seu projeto → **Settings → Domains** → digite `cogniai.com.br` →
-   **Add**
-2. A Vercel mostra registros de DNS. No painel de onde você comprou o domínio
-   (Registro.br, GoDaddy, etc.), adicione **exatamente** esses registros.
-3. Espere propagar (minutos a algumas horas)
-4. Vercel → `NEXT_PUBLIC_APP_URL` = `https://cogniai.com.br` → Redeploy
-5. Supabase → Authentication → troque a Site URL e adicione
-   `https://cogniai.com.br/auth/callback`
+### Passo 23 — IA de texto (chat e correção de redação de verdade)
 
-### 8.5 — Google Analytics (opcional)
+Sem isso, o chat e a correção de redação respondem textos de exemplo ("modo
+demonstração"). Com a chave da OpenAI, passam a usar IA real.
 
-Vercel → `NEXT_PUBLIC_GA_ID` = `G-XXXXXXXXXX`. Só carrega se o visitante
-aceitar os cookies de análise.
+1. Abra https://platform.openai.com e crie a conta (ou entre)
+2. No canto superior direito, clique no seu nome → **Your profile**
+3. No menu da esquerda, clique em **API keys** (ou abra direto
+   https://platform.openai.com/api-keys)
+4. Clique no botão **Create new secret key**
+5. Dê um nome qualquer (ex.: `cogni-ia`) → **Create secret key**
+6. Vai aparecer uma chave começando com `sk-...`. Clique em **Copy** e cole
+   num bloco de notas por enquanto (ela **só aparece uma vez**)
+7. Agora ative o pagamento (a OpenAI cobra por uso, centavos por mensagem):
+   no menu da esquerda clique em **Billing** → **Add payment details** →
+   cadastre um cartão
+8. Ainda em **Billing**, defina um teto de gasto: **Usage limits** →
+   em "Monthly budget" coloque um valor baixo pra segurança (ex.: **US$ 10**)
+   → **Save**
+9. Faça a **TAREFA A**: variável **`OPENAI_API_KEY`** = a chave `sk-...` que
+   você copiou
+10. Faça a **TAREFA B** (Redeploy)
+
+**Como saber se funcionou:**
+
+- [ ] Entre no site → abra o **Chat** → mande uma pergunta
+- [ ] A resposta **não** tem mais o aviso de "modo demonstração"
+- [ ] `/admin/saude` → o cartão de IA aparece como configurado
+
+---
+
+### Passo 24 — IA de imagem (ler foto de redação manuscrita / OCR)
+
+Sem isso, quem manda a **foto** de uma redação escrita à mão recebe uma
+transcrição de exemplo. Com a chave do Google, o texto é lido de verdade.
+
+1. Abra https://aistudio.google.com e entre com sua conta Google
+2. No menu da esquerda, clique em **Get API key** (ou abra direto
+   https://aistudio.google.com/apikey)
+3. Clique em **Create API key**
+4. Se pedir para escolher um projeto, aceite o que ele sugere
+   ("Generative Language Client" ou similar) → **Create API key in new
+   project**
+5. Vai aparecer uma chave começando com `AIza...`. Clique em **Copy** e cole
+   no bloco de notas
+6. Faça a **TAREFA A**: variável **`GEMINI_API_KEY`** = a chave `AIza...`
+7. Faça a **TAREFA B** (Redeploy)
+
+**Como saber se funcionou:**
+
+- [ ] Site → **Redação** → **Nova redação** → escolha enviar **por foto** →
+      suba uma imagem com texto → a transcrição sai do conteúdo real da foto
+      (não um texto genérico)
+
+---
+
+### Passo 25 — Pagamentos do Premium (Mercado Pago)
+
+Sem isso, o botão "Assinar Premium" roda em modo simulado (confirma sozinho,
+sem cobrar). Com o Mercado Pago, a assinatura é cobrada de verdade.
+
+**25.1 — Pegar o Access Token de produção**
+
+1. Abra https://www.mercadopago.com.br/developers e entre com sua conta
+   Mercado Pago
+2. No menu, clique em **Suas integrações** (ou **Your integrations**)
+3. Clique em **Criar aplicação**
+4. Nome: `COGNI IA` · em "Produto que vai integrar" escolha
+   **Pagamentos online / Checkout** · finalize criando a aplicação
+5. Dentro da aplicação, no menu da esquerda, clique em **Credenciais de
+   produção**
+6. Pode ser que peçam preencher dados da empresa/CPF antes de liberar. Faça
+   isso e volte aqui.
+7. Copie o campo **Access Token** (é um texto longo, tipo `APP_USR-...`).
+   Cole no bloco de notas.
+
+**25.2 — Inventar o segredo do webhook**
+
+1. Você precisa de uma senha longa só sua. Gere uma: no PowerShell, dentro
+   de `C:\Users\leomi\cogni-ia`, rode:
+
+```bash
+cd C:\Users\leomi\cogni-ia
+```
+
+```bash
+node -e "console.log(require('crypto').randomBytes(24).toString('hex'))"
+```
+
+2. Copie o texto que aparecer (48 caracteres). Esse é o seu
+   `MERCADOPAGO_WEBHOOK_SECRET`. Guarde no bloco de notas.
+
+**25.3 — Colocar as duas na Vercel**
+
+1. Faça a **TAREFA A**: variável **`MERCADOPAGO_ACCESS_TOKEN`** = o
+   `APP_USR-...`
+2. Faça a **TAREFA A** de novo: variável **`MERCADOPAGO_WEBHOOK_SECRET`** = a
+   senha de 48 caracteres
+3. Faça a **TAREFA B** (Redeploy)
+
+**25.4 — Cadastrar o aviso de pagamento (webhook) no Mercado Pago**
+
+1. Monte esta URL trocando as duas partes em MAIÚSCULAS:
+   `https://SUA-URL-DA-VERCEL/api/billing/webhook?secret=SEU-WEBHOOK-SECRET`
+   - exemplo: `https://cognia-ia.vercel.app/api/billing/webhook?secret=ab12...`
+2. No painel de desenvolvedor do Mercado Pago, dentro da sua aplicação, clique
+   em **Webhooks** (ou **Notificações** → **Webhooks**)
+3. Em **URL de produção**, cole a URL que você montou → **Salvar**
+4. Em "Eventos", marque **Pagamentos** (payments) e, se existir,
+   **Assinaturas** (subscriptions/preapproval)
+
+**Como saber se funcionou:**
+
+- [ ] Site → **Preços** → **Assinar Premium** → você é levado a uma tela de
+      pagamento real do Mercado Pago (cartão / Pix)
+- [ ] Depois de um pagamento de teste aprovado, sua conta vira **Premium**
+      sozinha em ~1 minuto
+- [ ] `/admin/saude` → cartão de pagamentos configurado
+
+> Enquanto estiver testando, use o valor mais baixo possível ou as contas de
+> teste do Mercado Pago (menu **Contas de teste** no painel de desenvolvedor).
+
+---
+
+### Passo 26 — Domínio próprio (ex.: `cogniai.com.br`)
+
+Troca o endereço `xxxxx.vercel.app` pelo seu domínio. Você precisa **já ter
+comprado** o domínio (no Registro.br, GoDaddy, Hostinger, etc.).
+
+1. Faça login onde você comprou o domínio e deixe essa aba aberta
+2. Na Vercel → seu projeto → **Settings** → menu da esquerda **Domains**
+3. No campo, digite seu domínio (ex.: `cogniai.com.br`) → **Add**
+4. A Vercel vai mostrar 1 ou 2 **registros de DNS** para você criar. Anote
+   exatamente: o **Tipo** (A ou CNAME), o **Name/Host** e o **Value**
+5. Na aba do seu provedor de domínio, procure **DNS** / **Zona DNS** /
+   **Gerenciar DNS**
+6. Adicione **exatamente** os registros que a Vercel pediu (mesmo Tipo, Name
+   e Value) → salve
+7. Volte na Vercel e espere. Pode levar de alguns minutos a algumas horas. A
+   Vercel mostra **Valid Configuration** (verde) quando reconhecer.
+8. Quando estiver verde, faça a **TAREFA A**: edite **`NEXT_PUBLIC_APP_URL`**
+   = `https://cogniai.com.br` (seu domínio, sem barra no final)
+9. Faça a **TAREFA B** (Redeploy)
+10. Ajuste o login: Supabase → **Authentication → URL Configuration** →
+    **Site URL** = `https://cogniai.com.br` → em **Redirect URLs** clique
+    **Add URL** e some `https://cogniai.com.br/auth/callback` → **Save**
+11. (Se você já tinha ligado o Mercado Pago no Passo 25) refaça a URL do
+    webhook com o domínio novo e atualize lá no Mercado Pago
+
+**Como saber se funcionou:**
+
+- [ ] Digitar `https://cogniai.com.br` abre o seu site com cadeado (HTTPS)
+- [ ] Criar conta e login funcionam pelo domínio novo
+
+---
+
+### Passo 27 — Google Analytics (opcional, 2 min)
+
+Para acompanhar visitas.
+
+1. Abra https://analytics.google.com → crie uma propriedade para o site
+2. Em **Fluxos de dados** → crie um fluxo **Web** com a URL do site
+3. Copie o **ID de medição**, no formato `G-XXXXXXXXXX`
+4. Faça a **TAREFA A**: variável **`NEXT_PUBLIC_GA_ID`** = `G-XXXXXXXXXX`
+5. Faça a **TAREFA B** (Redeploy)
+
+Ele só carrega para visitantes que **aceitarem** os cookies de análise no
+aviso do site.
+
+---
+
+## PARTE 9 — Segurança: trocar a chave secreta do Supabase
+
+**Faça isto quando o site estiver estável.** A chave `service_role` do
+Supabase (a `SUPABASE_SERVICE_ROLE_KEY`) foi exposta durante a configuração,
+então o certo é **gerar uma nova e aposentar a antiga**. Leva ~5 min.
+
+### Passo 28 — Rolar (regenerar) a chave
+
+1. Abra https://supabase.com e entre no seu projeto
+2. Menu da esquerda → ícone de engrenagem **Project Settings**
+3. Clique em **API**
+4. Ache a seção **Project API keys** → a linha **`service_role`** (marcada
+   como `secret`)
+5. Clique em **Roll** (ou **Generate new key** / ícone de recarregar) na
+   linha do `service_role` → confirme
+6. A chave antiga para de funcionar **na hora**. Copie a **nova** chave
+   `service_role` (começa com `sb_secret_...` ou `eyJ...`)
+7. Faça a **TAREFA A**: edite **`SUPABASE_SERVICE_ROLE_KEY`** na Vercel →
+   cole a nova → **Save**
+8. Faça a **TAREFA B** (Redeploy)
+9. Atualize também no seu computador: abra
+   `C:\Users\leomi\cogni-ia\.env.local` **no VS Code** (não no Bloco de
+   Notas), troque o valor da linha `SUPABASE_SERVICE_ROLE_KEY=` pela nova
+   chave, e salve. Se o VS Code perguntar a codificação, use **UTF-8**.
+
+**Como saber se funcionou:**
+
+- [ ] `/admin/saude` no site continua com banco e cache no verde
+- [ ] O seed ainda roda:
+
+```bash
+cd C:\Users\leomi\cogni-ia
+```
+
+```bash
+npm run seed:biblioteca
+```
+
+- [ ] Terminou com `✓ Seed concluído: ...` (sem erro de autorização)
 
 ---
 
@@ -479,8 +683,8 @@ aceitar os cookies de análise.
 | Login não funciona no site | A **Redirect URL** do Supabase (Passo 22) tem que ser **exatamente** `https://SUA-URL.vercel.app/auth/callback`. |
 | Biblioteca vazia | Faltou o Passo 16 (`npm run seed:biblioteca`) com o `.env.local` preenchido. |
 | `/admin` te joga para `/dashboard` | Faltou o SQL do Passo 17 (te tornar admin). Rode de novo. |
-| Chat responde texto "de demonstração" | Normal sem `OPENAI_API_KEY` (Passo 8.1). |
+| Chat responde texto "de demonstração" | Normal sem `OPENAI_API_KEY` (Passo 23). |
 | `/admin/saude` com "Fila / erros" degradado | Falta `SUPABASE_SERVICE_ROLE_KEY` nas variáveis da Vercel. |
 
 **Se o tempo for curto:** PARTE 0 → 1 → 2 → 3 → 4 → 5 → 6 já coloca o site
-utilizável no ar. A PARTE 8 é evolução, pode ser em outro dia.
+utilizável no ar. As PARTES 8 e 9 são evolução, podem ser em outro dia.
