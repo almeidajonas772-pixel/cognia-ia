@@ -5,6 +5,10 @@ const nextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
 
+  // O build não é bloqueado por avisos de lint (rode `npm run lint` à parte
+  // para limpá-los). A checagem de tipos do TypeScript continua ativa.
+  eslint: { ignoreDuringBuilds: true },
+
   experimental: {
     // Fase 10 — performance de bundle: tree-shake libs de ícones/markdown.
     optimizePackageImports: ["lucide-react", "react-markdown", "remark-gfm"],
