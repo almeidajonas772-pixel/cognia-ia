@@ -8,6 +8,8 @@ import {
 } from "@/lib/privacy/deletion";
 import { requestDataExport } from "@/lib/privacy/export";
 import { persistConsent } from "@/lib/privacy/consent";
+import { processJobs } from "@/lib/queue";
+import "@/lib/queue/handlers";
 
 /**
  * Fase 11 — Server Actions de privacidade (LGPD). Cada uma revalida a página
@@ -17,6 +19,15 @@ import { persistConsent } from "@/lib/privacy/consent";
 export async function requestExportAction() {
   const user = await requireUser();
   const res = await requestDataExport(user.id);
+  // Processa a exportação já nesta requisição (best-effort); se falhar/estourar
+  // tempo, o job fica na fila e o cron diário conclui.
+  if (res.ok) {
+    try {
+      await processJobs(1);
+    } catch {
+      /* fica para o cron */
+    }
+  }
   revalidatePath("/perfil/privacidade");
   return res;
 }

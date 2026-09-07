@@ -401,8 +401,9 @@ direita, clique **Add**.
    `https://SUA-URL.vercel.app/auth/callback` (mantenha também a de localhost)
 4. **Save**
 
-Pronto. O cron (`/api/cron` a cada 5 min) já roda sozinho porque você definiu
-`CRON_SECRET`.
+Pronto. O cron (`/api/cron`) roda **1x por dia** sozinho (limite do plano
+grátis da Vercel). As correções de redação e exportações de dados já rodam na
+hora, sem depender do cron — ele serve só de "faxina" e ajustes diários.
 
 ---
 

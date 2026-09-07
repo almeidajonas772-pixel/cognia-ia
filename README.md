@@ -179,7 +179,7 @@ supabase/
   migrations/0011_onboarding.sql  # Fase 13 — user_onboarding, waitlist + site_config.launch
   migrations/0012_crescimento.sql # Fase 14 — user_gamification, xp_events, user_achievements, referral_codes, referrals
   migrations/0013_ia_adaptativa.sql # Fase 15 — chat_user_memory (+evolução), memory_snapshots, site_config.model_routing
-vercel.json                       # Fase 10/13 — cron a cada 5 min + região gru1
+vercel.json                       # Fase 10/13 — cron diário (limite do plano Hobby) + região gru1
 ```
 
 ## Identidade visual

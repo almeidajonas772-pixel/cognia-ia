@@ -11,7 +11,8 @@ export const maxDuration = 120;
 
 /**
  * Rotina periódica única (spec §8, §9). Agende (Vercel Cron / cron-job.org) um
- * GET a cada ~5 min com `Authorization: Bearer <CRON_SECRET>`. Passos tolerantes
+ * GET periódico com `Authorization: Bearer <CRON_SECRET>` (Vercel Hobby: 1x/dia
+ * via vercel.json; Pro ou cron externo: pode ser mais frequente). Passos tolerantes
  * a falha, em ordem:
  *   1. expira assinaturas vencidas          (Fase 8)
  *   2. publica posts de blog agendados      (Fase 9)
