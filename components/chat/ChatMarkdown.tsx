@@ -1,11 +1,10 @@
 "use client";
 
-import ReactMarkdown from "react-markdown";
+import type { ComponentProps } from "react";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-type MdEl<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T] & {
-  node?: unknown;
-};
+type TableEl = ComponentProps<"table"> & { node?: unknown };
 
 /** Markdown das respostas do chat (mesmo estilo prose da biblioteca). */
 export function ChatMarkdown({ children }: { children: string }) {
@@ -15,12 +14,12 @@ export function ChatMarkdown({ children }: { children: string }) {
         remarkPlugins={[remarkGfm]}
         components={{
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          table: ({ node, ...props }: MdEl<"table">) => (
+          table: ({ node, ...props }: TableEl) => (
             <div className="my-3 overflow-x-auto rounded-lg border border-border">
               <table {...props} className="my-0" />
             </div>
           ),
-        }}
+        } as Components}
       >
         {children}
       </ReactMarkdown>

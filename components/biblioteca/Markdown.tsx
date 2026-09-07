@@ -1,10 +1,9 @@
-import ReactMarkdown from "react-markdown";
+import type { ComponentProps } from "react";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 /** Props que o react-markdown passa a um renderer de elemento (v9 inclui `node`). */
-type MdEl<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T] & {
-  node?: unknown;
-};
+type MdEl<T extends "table" | "img"> = ComponentProps<T> & { node?: unknown };
 
 /**
  * Renderiza markdown (tabelas GFM e figuras) no estilo dos guias de estudo.
@@ -40,7 +39,7 @@ export function Markdown({ children }: { children: string }) {
               ) : null}
             </figure>
           ),
-        }}
+        } as Components}
       >
         {children}
       </ReactMarkdown>
